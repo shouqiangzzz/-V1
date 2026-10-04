@@ -97,13 +97,13 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
 
   const getIcon = (name: string) => {
     switch (name) {
-      case 'Moon': return <Moon className="w-5 h-5 text-indigo-400" />;
-      case 'Flame': return <Flame className="w-5 h-5 text-emerald-400" />;
-      case 'Utensils': return <Utensils className="w-5 h-5 text-cyan-400" />;
-      case 'Armchair': return <Armchair className="w-5 h-5 text-amber-400" />;
-      case 'Sparkles': return <Sparkles className="w-5 h-5 text-purple-400" />;
-      case 'Droplets': return <Droplets className="w-5 h-5 text-blue-400" />;
-      default: return <Zap className="w-5 h-5 text-teal-400" />;
+      case 'Moon': return <Moon className="w-5 h-5 text-indigo-600" />;
+      case 'Flame': return <Flame className="w-5 h-5 text-[var(--bd-accent-strong)]" />;
+      case 'Utensils': return <Utensils className="w-5 h-5 text-cyan-600" />;
+      case 'Armchair': return <Armchair className="w-5 h-5 text-amber-600" />;
+      case 'Sparkles': return <Sparkles className="w-5 h-5 text-purple-600" />;
+      case 'Droplets': return <Droplets className="w-5 h-5 text-blue-600" />;
+      default: return <Zap className="w-5 h-5 text-teal-600" />;
     }
   };
 
@@ -233,25 +233,25 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
       {notification && (
         <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-950 to-slate-900 border border-emerald-500/50 text-emerald-200 text-sm flex items-center justify-between shadow-2xl animate-fade-in">
           <div className="flex items-center space-x-2">
-            <Sparkles className="w-5 h-5 text-emerald-400 shrink-0" />
+            <Sparkles className="w-5 h-5 text-[var(--bd-accent-strong)] shrink-0" />
             <span>{notification}</span>
           </div>
-          <button onClick={() => setNotification(null)} className="text-slate-400 hover:text-white text-xs">
+          <button onClick={() => setNotification(null)} className="text-[var(--bd-sub)] hover:text-white text-xs">
             ✕
           </button>
         </div>
       )}
 
       {/* Header & Science Explanation */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--bd-card)] p-5 rounded-2xl border border-[var(--bd-border)]">
         <div>
-          <h3 className="text-lg font-bold text-white flex items-center space-x-2">
+          <h3 className="text-lg font-bold text-[var(--bd-text)] flex items-center space-x-2">
             <span>{language === 'zh' ? '习惯持续性与寿命加减账本' : 'Habit Consistency & Lifespan Ledger'}</span>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)] border border-emerald-500/30">
               {language === 'zh' ? '20天复利循环' : '20-Day Compound Cycle'}
             </span>
           </h3>
-          <p className="text-xs text-slate-400 mt-1 max-w-2xl leading-relaxed">
+          <p className="text-xs text-[var(--bd-sub)] mt-1 max-w-2xl leading-relaxed">
             {language === 'zh' 
               ? '根据生物节律与线粒体修复科学，健康习惯每持续20天可使机体端粒与表观遗传学年轻化（+1天寿命 / +86,400秒）。反之，熬夜或久坐累积将按规则折损寿命秒数。右上角动态更新全量增减！'
               : 'Based on circadian biology and mitochondrial repair, 20 consecutive days of healthy habits rejuvenate cellular telomeres and epigenetics (+1 Day / +86,400s). Disrupted routines deduct lifespan. Real-time gain/loss synced at top!'}
@@ -262,7 +262,7 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
         <div className="flex items-center space-x-2 shrink-0">
           <button
             onClick={onOpenFoodScanner}
-            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-900/50 text-xs font-semibold cursor-pointer transition-all"
+            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-700 hover:bg-cyan-100 text-xs font-semibold cursor-pointer transition-all"
           >
             <Camera className="w-3.5 h-3.5" />
             <span>{language === 'zh' ? '拍照AI饮食识别' : 'Food AI Scan'}</span>
@@ -270,7 +270,7 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
 
           <button
             onClick={onOpenSedentary}
-            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-amber-950/70 border border-amber-500/40 text-amber-300 hover:bg-amber-900/50 text-xs font-semibold cursor-pointer transition-all"
+            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-700 hover:bg-amber-100 text-xs font-semibold cursor-pointer transition-all"
           >
             <Armchair className="w-3.5 h-3.5" />
             <span>{language === 'zh' ? '开启久坐后台检测' : 'Sedentary Guard'}</span>
@@ -278,9 +278,9 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
 
           <button
             onClick={onOpenRules}
-            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 hover:bg-slate-700 text-xs font-semibold cursor-pointer transition-all"
+            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-[var(--bd-card)] border border-[var(--bd-border)] text-[var(--bd-text)] hover:bg-[var(--bd-chip)] text-xs font-semibold cursor-pointer transition-all"
           >
-            <Sliders className="w-3.5 h-3.5 text-slate-400" />
+            <Sliders className="w-3.5 h-3.5 text-[var(--bd-sub)]" />
             <span>{language === 'zh' ? '差异化标准' : 'Custom Rules'}</span>
           </button>
         </div>
@@ -290,7 +290,7 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
       {onOpenContract && (
         <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-950/40 via-slate-900 to-cyan-950/30 border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg">
           <div className="flex items-center space-x-3.5">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/30">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-600 flex items-center justify-center shrink-0 border border-amber-500/30">
               <HeartHandshake className="w-5 h-5" />
             </div>
             <div>
@@ -300,7 +300,7 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
                   瓜分奖池
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 mt-0.5">
+              <p className="text-[11px] text-[var(--bd-sub)] mt-0.5">
                 {language === 'zh' 
                   ? '单兵作战易倦怠？2-4人组队挑战深睡与晨跑，押注虚拟生命币，违约触发扣除惩罚，全员通关瓜分大奖！' 
                   : 'Struggle alone? Team up with 2-4 buddies, stake Life-Coins, conquer habits and split the prize pool!'}
@@ -312,7 +312,7 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
             {onOpenARShare && (
               <button
                 onClick={onOpenARShare}
-                className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold cursor-pointer transition-colors"
+                className="px-3 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-700 text-[var(--bd-sub)] text-xs font-semibold cursor-pointer transition-colors"
               >
                 {language === 'zh' ? '生成打卡AR海报' : 'AR Card'}
               </button>
@@ -328,17 +328,17 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
       )}
 
       {/* Personalized Health Tailoring Tip */}
-      <div className="bg-slate-950/80 rounded-xl p-3.5 border border-slate-800 text-xs flex items-center justify-between text-slate-400">
+      <div className="bg-[var(--bd-card)] rounded-xl p-3.5 border border-[var(--bd-border)] text-xs flex items-center justify-between text-[var(--bd-sub)]">
         <div className="flex items-center space-x-2">
-          <Info className="w-4 h-4 text-teal-400 shrink-0" />
+          <Info className="w-4 h-4 text-teal-600 shrink-0" />
           <span>
             {language === 'zh' ? '当前匹配指标：' : 'Matched Biomarkers: '}
-            {language === 'zh' ? '体脂率' : 'Body Fat'} <strong className="text-slate-200">{profile.bodyFat}%</strong> · 
-            {language === 'zh' ? '空腹血糖' : ' Fasting Glucose'} <strong className="text-slate-200">{profile.fastingBloodSugar} mmol/L</strong> · 
-            {language === 'zh' ? '血压' : ' Blood Pressure'} <strong className="text-slate-200">{profile.systolicBP}/{profile.diastolicBP} mmHg</strong>
+            {language === 'zh' ? '体脂率' : 'Body Fat'} <strong className="text-[var(--bd-text)]">{profile.bodyFat}%</strong> · 
+            {language === 'zh' ? '空腹血糖' : ' Fasting Glucose'} <strong className="text-[var(--bd-text)]">{profile.fastingBloodSugar} mmol/L</strong> · 
+            {language === 'zh' ? '血压' : ' Blood Pressure'} <strong className="text-[var(--bd-text)]">{profile.systolicBP}/{profile.diastolicBP} mmHg</strong>
           </span>
         </div>
-        <span className="text-[11px] text-teal-400 hidden sm:inline">
+        <span className="text-[11px] text-teal-600 hidden sm:inline">
           {language === 'zh' ? '已自动匹配差异化标准' : 'Personalized Standards Matched'}
         </span>
       </div>
@@ -355,29 +355,29 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
           return (
             <div 
               key={habit.id}
-              className="bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 transition-all flex flex-col justify-between shadow-lg"
+              className="bg-[var(--bd-card)] border border-[var(--bd-border)] hover:border-[var(--bd-border)] rounded-2xl p-5 transition-all flex flex-col justify-between shadow-lg"
             >
               <div>
                 {/* Header */}
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center space-x-3">
-                    <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                    <div className="p-2.5 rounded-xl bg-[var(--bd-chip)] border border-[var(--bd-border)]">
                       {getIcon(habit.iconName)}
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-white">{title}</h4>
-                      <p className="text-[11px] text-slate-400 mt-0.5">{description}</p>
+                      <h4 className="text-sm font-bold text-[var(--bd-text)]">{title}</h4>
+                      <p className="text-[11px] text-[var(--bd-sub)] mt-0.5">{description}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Rules / Rewards Text */}
-                <div className="space-y-1.5 text-xs bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 my-3">
-                  <div className="flex items-center space-x-1.5 text-emerald-400 font-medium">
+                <div className="space-y-1.5 text-xs bg-[var(--bd-chip)] p-3 rounded-xl border border-[var(--bd-border)] my-3">
+                  <div className="flex items-center space-x-1.5 text-[var(--bd-accent-strong)] font-medium">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
                     <span>{posCond}</span>
                   </div>
-                  <div className="flex items-center space-x-1.5 text-rose-400/90">
+                  <div className="flex items-center space-x-1.5 text-rose-600">
                     <span className="w-1.5 h-1.5 rounded-full bg-rose-400 shrink-0" />
                     <span>{negCond}</span>
                   </div>
@@ -386,11 +386,11 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
                 {/* 20-Day Streak Progress Bar & Circles */}
                 <div className="my-4">
                   <div className="flex items-center justify-between text-xs mb-1.5">
-                    <span className="text-slate-400">
+                    <span className="text-[var(--bd-sub)]">
                       {language === 'zh' ? '连续达成进度:' : 'Streak Progress:'}{' '}
-                      <strong className="text-white font-mono-num">{habit.currentPositiveStreak}</strong> / {habit.positiveGoalDays} {language === 'zh' ? '天' : 'Days'}
+                      <strong className="text-[var(--bd-text)] font-mono-num">{habit.currentPositiveStreak}</strong> / {habit.positiveGoalDays} {language === 'zh' ? '天' : 'Days'}
                     </span>
-                    <span className="text-emerald-400 font-semibold text-[11px]">
+                    <span className="text-[var(--bd-accent-strong)] font-semibold text-[11px]">
                       {language === 'zh' 
                         ? `还差 ${Math.max(0, habit.positiveGoalDays - habit.currentPositiveStreak)} 天达标`
                         : `${Math.max(0, habit.positiveGoalDays - habit.currentPositiveStreak)} Days to Target`}
@@ -408,7 +408,7 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
                           className={`h-2 rounded-sm transition-all ${
                             isFilled
                               ? 'bg-gradient-to-t from-emerald-600 to-teal-400 shadow-xs'
-                              : 'bg-slate-800'
+                              : 'bg-slate-200'
                           }`}
                         />
                       );
@@ -417,7 +417,7 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
 
                   {/* Negative streak warning if active */}
                   {hasNegativeWarning && (
-                    <div className="mt-2 text-[11px] text-rose-400 bg-rose-950/40 border border-rose-900/60 p-2 rounded-lg flex items-center justify-between">
+                    <div className="mt-2 text-[11px] text-rose-600 bg-rose-50 border border-rose-200 p-2 rounded-lg flex items-center justify-between">
                       <span>
                         {language === 'zh' 
                           ? `⚠️ 已连续违规: ${habit.currentNegativeStreak} / ${habit.negativeThresholdDays} 天`
@@ -434,12 +434,12 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
               </div>
 
               {/* Action Buttons: Check-in positive vs negative */}
-              <div className="pt-3 border-t border-slate-800/80 flex items-center space-x-2">
+              <div className="pt-3 border-t border-[var(--bd-border)] flex items-center space-x-2">
                 <button
                   onClick={() => handleCheckInPositive(habit.id)}
                   className={`flex-1 py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center space-x-1.5 cursor-pointer transition-all ${
                     habit.todayStatus === 'completed'
-                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                      ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)] border border-emerald-500/40'
                       : 'bg-emerald-600 hover:bg-emerald-500 text-black shadow-md hover:shadow-emerald-500/20'
                   }`}
                 >
@@ -454,7 +454,7 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
                 <button
                   onClick={() => handleCheckInNegative(habit.id)}
                   title={language === 'zh' ? "标记今日违规（如熬夜、暴饮暴食、严重久坐）" : "Mark today's disruption (e.g. late night, binge eating, excess sitting)"}
-                  className="py-2 px-2.5 rounded-xl bg-slate-950 hover:bg-rose-950/40 border border-slate-800 hover:border-rose-800 text-slate-400 hover:text-rose-300 text-xs cursor-pointer transition-all"
+                  className="py-2 px-2.5 rounded-xl bg-[var(--bd-card)] hover:bg-rose-50 border border-[var(--bd-border)] hover:border-rose-200 text-[var(--bd-sub)] hover:text-rose-600 text-xs cursor-pointer transition-all"
                 >
                   <XCircle className="w-3.5 h-3.5" />
                 </button>

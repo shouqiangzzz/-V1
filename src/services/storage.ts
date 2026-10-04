@@ -20,11 +20,11 @@ const STORAGE_KEYS = {
 
 export const DEFAULT_THEME_CONFIG: ThemeConfig = {
   style: 'space',
-  customBgColor: '#030712',
-  customSecondaryColor: '#0c1527',
+  customBgColor: '#e9d5ff',
+  customSecondaryColor: '#ddd6fe',
   customAccentColor: '#10b981',
   backgroundPattern: 'mesh',
-  blurOpacity: 0.85,
+  blurOpacity: 0.45,
 };
 
 export const DEFAULT_PRIVACY_SETTINGS = {

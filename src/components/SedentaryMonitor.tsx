@@ -136,12 +136,12 @@ export const SedentaryMonitor: React.FC<SedentaryMonitorProps> = ({
       
       {/* Alert Banner */}
       {alertMessage && (
-        <div className="p-4 rounded-xl bg-gradient-to-r from-amber-950 via-slate-900 to-slate-950 border border-amber-500/50 text-amber-200 text-sm flex items-center justify-between shadow-xl animate-fade-in">
+        <div className="p-4 rounded-xl bg-gradient-to-r from-amber-50 via-white to-white border border-amber-500/30 text-amber-700 text-sm flex items-center justify-between shadow-xl animate-fade-in">
           <div className="flex items-center space-x-2.5">
             <Bell className="w-5 h-5 text-amber-400 shrink-0 animate-bounce" />
             <span>{alertMessage}</span>
           </div>
-          <button onClick={() => setAlertMessage(null)} className="text-slate-400 hover:text-white text-xs">
+          <button onClick={() => setAlertMessage(null)} className="text-[var(--bd-sub)] hover:text-[var(--bd-text)] text-xs">
             ✕
           </button>
         </div>
@@ -151,24 +151,24 @@ export const SedentaryMonitor: React.FC<SedentaryMonitorProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Left 2 Cols: Live Sitting Meter */}
-        <div className="lg:col-span-2 bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xl relative overflow-hidden">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div className="lg:col-span-2 bg-[var(--bd-card)] border border-[var(--bd-border)] rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xl relative overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[var(--bd-border)]">
             <div className="flex items-center space-x-3">
-              <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+              <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600">
                 <Armchair className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-white flex items-center space-x-2">
+                <h3 className="text-base font-bold text-[var(--bd-text)] flex items-center space-x-2">
                   <span>{language === 'zh' ? '智能久坐后台自动检测' : 'Smart Sedentary Auto-Detection'}</span>
                   <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                    isRunning ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800 text-slate-400'
+                    isRunning ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)] border border-emerald-500/30' : 'bg-[var(--bd-chip)] text-[var(--bd-sub)]'
                   }`}>
                     {isRunning 
                       ? (language === 'zh' ? '● 后台实时检测中' : '● Live Monitoring') 
                       : (language === 'zh' ? '○ 已暂停' : '○ Paused')}
                   </span>
                 </h3>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <p className="text-xs text-[var(--bd-sub)] mt-0.5">
                   {language === 'zh' 
                     ? '监测连续静态坐姿与活动状态，守护心血管与胰岛素敏感度' 
                     : 'Monitors continuous sitting posture & activity, protecting cardiovascular and metabolic health'}
@@ -182,8 +182,8 @@ export const SedentaryMonitor: React.FC<SedentaryMonitorProps> = ({
                 onClick={() => setIsRunning(!isRunning)}
                 className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer transition-all ${
                   isRunning 
-                    ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' 
-                    : 'bg-emerald-600 text-black hover:bg-emerald-500 shadow-md shadow-emerald-600/20'
+                    ? 'bg-[var(--bd-chip)] text-[var(--bd-text)] hover:bg-[var(--bd-chip)]' 
+                    : 'bg-emerald-600 text-white hover:bg-emerald-500 shadow-md shadow-emerald-600/20'
                 }`}
               >
                 {isRunning ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
@@ -196,7 +196,7 @@ export const SedentaryMonitor: React.FC<SedentaryMonitorProps> = ({
               <button
                 onClick={() => setLocalSittingSecs(0)}
                 title={language === 'zh' ? "重置当前坐姿计时" : "Reset Timer"}
-                className="p-1.5 rounded-xl bg-slate-800 text-slate-400 hover:text-white cursor-pointer"
+                className="p-1.5 rounded-xl bg-[var(--bd-chip)] text-[var(--bd-sub)] hover:text-[var(--bd-text)] cursor-pointer"
               >
                 <RotateCcw className="w-4 h-4" />
               </button>
@@ -205,38 +205,38 @@ export const SedentaryMonitor: React.FC<SedentaryMonitorProps> = ({
 
           {/* Central Live Ticking Display */}
           <div className="my-8 text-center">
-            <div className="text-xs uppercase tracking-widest text-slate-500 mb-2 font-mono">
+            <div className="text-xs uppercase tracking-widest text-[var(--bd-sub)] mb-2 font-mono">
               {language === 'zh' ? '当前单次连续坐姿时长' : 'Current Continuous Sitting Time'}
             </div>
             
             <div className={`font-mono-num font-extrabold text-5xl sm:text-6xl tracking-tight transition-colors ${
               sittingMinutes >= 60 
-                ? 'text-rose-400' 
+                ? 'text-rose-600' 
                 : sittingMinutes >= 45 
-                ? 'text-amber-300' 
-                : 'text-white'
+                ? 'text-amber-600' 
+                : 'text-[var(--bd-text)]'
             }`}>
               <span>{String(sittingMinutes).padStart(2, '0')}</span>
-              <span className="text-slate-500 text-3xl mx-1">:</span>
+              <span className="text-[var(--bd-sub)] text-3xl mx-1">:</span>
               <span>{String(sittingRemainderSecs).padStart(2, '0')}</span>
-              <span className="text-sm font-normal text-slate-400 ml-2">
+              <span className="text-sm font-normal text-[var(--bd-sub)] ml-2">
                 {language === 'zh' ? '分:秒' : 'm:s'}
               </span>
             </div>
 
             <div className="mt-3 flex items-center justify-center space-x-2 text-xs">
               {sittingMinutes < 45 ? (
-                <span className="text-emerald-400 flex items-center space-x-1">
+                <span className="text-[var(--bd-accent-strong)] flex items-center space-x-1">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>{language === 'zh' ? '状态优良：尚未进入有害静态区间（<45分钟）' : 'Optimal: Safe static zone (<45 mins)'}</span>
                 </span>
               ) : sittingMinutes < 60 ? (
-                <span className="text-amber-400 flex items-center space-x-1">
+                <span className="text-amber-600 flex items-center space-x-1">
                   <AlertTriangle className="w-3.5 h-3.5" />
                   <span>{language === 'zh' ? '警戒提示：已坐姿超过45分钟，建议预备站立活动' : 'Warning: Sitting >45 mins, prepare to stand & stretch'}</span>
                 </span>
               ) : (
-                <span className="text-rose-400 flex items-center space-x-1 font-bold animate-pulse">
+                <span className="text-rose-600 flex items-center space-x-1 font-bold animate-pulse">
                   <ShieldAlert className="w-3.5 h-3.5" />
                   <span>{language === 'zh' ? '严重风险：连续久坐超1小时！下肢代谢迟滞，请立刻起立' : 'Hazard: Sitting >1h! Vascular stasis, stand up now'}</span>
                 </span>
@@ -245,8 +245,8 @@ export const SedentaryMonitor: React.FC<SedentaryMonitorProps> = ({
           </div>
 
           {/* Core Action: Stand Up & Move */}
-          <div className="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="text-xs text-slate-400">
+          <div className="pt-4 border-t border-[var(--bd-border)] flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="text-xs text-[var(--bd-sub)]">
               {language === 'zh' 
                 ? '起身站立走动 5 分钟可将连续计时清零，并累加今日健康运动时间' 
                 : 'Walking or stretching for 5 mins resets timer and adds to today\'s active time'}
@@ -266,22 +266,22 @@ export const SedentaryMonitor: React.FC<SedentaryMonitorProps> = ({
         <div className="space-y-4">
           
           {/* Today Cumulative Sitting Card */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg">
+          <div className="bg-[var(--bd-card)] border border-[var(--bd-border)] rounded-2xl p-5 shadow-lg">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-slate-400">{language === 'zh' ? '今日累计久坐时间' : 'Today\'s Cumulative Sitting'}</span>
-              <span className="text-xs text-slate-500 font-mono">{language === 'zh' ? '上限 4.0小时' : 'Max 4.0h'}</span>
+              <span className="text-xs text-[var(--bd-sub)]">{language === 'zh' ? '今日累计久坐时间' : 'Today\'s Cumulative Sitting'}</span>
+              <span className="text-xs text-[var(--bd-sub)] font-mono">{language === 'zh' ? '上限 4.0小时' : 'Max 4.0h'}</span>
             </div>
             <div className="flex items-baseline space-x-2">
-              <span className="font-mono-num font-bold text-2xl text-white">
+              <span className="font-mono-num font-bold text-2xl text-[var(--bd-text)]">
                 {todaySittingHours}
               </span>
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-[var(--bd-sub)]">
                 {language === 'zh' ? '小时 / 4.0 小时上限' : 'Hours / 4.0h limit'}
               </span>
             </div>
             
             {/* Progress */}
-            <div className="w-full bg-slate-950 h-2 rounded-full overflow-hidden mt-3 border border-slate-800">
+            <div className="w-full bg-[var(--bd-chip)] h-2 rounded-full overflow-hidden mt-3 border border-[var(--bd-border)]">
               <div 
                 className={`h-full rounded-full transition-all ${
                   todaySittingHours > 4 ? 'bg-rose-500' : 'bg-amber-400'
@@ -289,7 +289,7 @@ export const SedentaryMonitor: React.FC<SedentaryMonitorProps> = ({
                 style={{ width: `${Math.min(100, (todaySittingHours / 4) * 100)}%` }}
               />
             </div>
-            <p className="text-[11px] text-slate-500 mt-2">
+            <p className="text-[11px] text-[var(--bd-sub)] mt-2">
               {todaySittingHours > 4 
                 ? (language === 'zh' ? '⚠️ 今日已超过4小时久坐红线！' : '⚠️ Exceeded 4-hour daily sitting limit!') 
                 : (language === 'zh' ? `还可坐 ${(4 - todaySittingHours).toFixed(1)} 小时达到红线` : `${(4 - todaySittingHours).toFixed(1)}h remaining before limit`)}
@@ -297,28 +297,28 @@ export const SedentaryMonitor: React.FC<SedentaryMonitorProps> = ({
           </div>
 
           {/* Today Cumulative Exercise Card */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg">
+          <div className="bg-[var(--bd-card)] border border-[var(--bd-border)] rounded-2xl p-5 shadow-lg">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-slate-400">{language === 'zh' ? '今日健康活动量' : 'Today\'s Healthy Activity'}</span>
-              <span className="text-xs text-emerald-400 font-mono">{language === 'zh' ? '目标 > 1小时' : 'Target > 1.0h'}</span>
+              <span className="text-xs text-[var(--bd-sub)]">{language === 'zh' ? '今日健康活动量' : 'Today\'s Healthy Activity'}</span>
+              <span className="text-xs text-[var(--bd-accent-strong)] font-mono">{language === 'zh' ? '目标 > 1小时' : 'Target > 1.0h'}</span>
             </div>
             <div className="flex items-baseline space-x-2">
-              <span className="font-mono-num font-bold text-2xl text-emerald-400">
+              <span className="font-mono-num font-bold text-2xl text-[var(--bd-accent-strong)]">
                 {todayExerciseHours}
               </span>
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-[var(--bd-sub)]">
                 {language === 'zh' ? '小时 / 1.0小时目标' : 'Hours / 1.0h goal'}
               </span>
             </div>
 
             {/* Progress */}
-            <div className="w-full bg-slate-950 h-2 rounded-full overflow-hidden mt-3 border border-slate-800">
+            <div className="w-full bg-[var(--bd-chip)] h-2 rounded-full overflow-hidden mt-3 border border-[var(--bd-border)]">
               <div 
                 className="h-full bg-emerald-500 rounded-full transition-all"
                 style={{ width: `${exerciseProgressPercent}%` }}
               />
             </div>
-            <p className="text-[11px] text-emerald-400 mt-2">
+            <p className="text-[11px] text-[var(--bd-accent-strong)] mt-2">
               {todayExerciseHours >= 1 
                 ? (language === 'zh' ? '✓ 今日已达成1小时健康运动，计入20天周期！' : '✓ Reached 1h daily activity, counted toward streak!') 
                 : (language === 'zh' ? `还需 ${(1 - todayExerciseHours).toFixed(1)} 小时达成今日增寿标准` : `${(1 - todayExerciseHours).toFixed(1)}h needed for daily bonus standard`)}
@@ -326,17 +326,17 @@ export const SedentaryMonitor: React.FC<SedentaryMonitorProps> = ({
           </div>
 
           {/* 10-Day Sedentary Hazard Tracker (User requirement: 一天久坐超过4小时，持续10天，减去1小时寿命) */}
-          <div className="bg-slate-950/90 border border-rose-900/50 rounded-2xl p-5 shadow-lg">
+          <div className="bg-rose-50 border border-rose-200 rounded-2xl p-5 shadow-lg">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-rose-300 flex items-center space-x-1.5">
-                <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
+              <span className="text-xs font-bold text-rose-600 flex items-center space-x-1.5">
+                <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
                 <span>{language === 'zh' ? '久坐惩罚规则预警' : 'Sedentary Penalty Warning'}</span>
               </span>
-              <span className="text-xs font-mono text-rose-400">
+              <span className="text-xs font-mono text-rose-600">
                 {state.dailySedentaryExcessDays} / 10 {language === 'zh' ? '天' : 'Days'}
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 mb-3">
+            <p className="text-[11px] text-[var(--bd-sub)] mb-3">
               {language === 'zh' 
                 ? <>规则：若单日久坐超4小时持续10天，将扣减寿命 <strong>1小时 (-3,600秒)</strong>。</>
                 : <>Rule: Exceeding 4h sitting for 10 consecutive days deducts <strong>1 Hour (-3,600s)</strong> of life.</>}
@@ -348,7 +348,7 @@ export const SedentaryMonitor: React.FC<SedentaryMonitorProps> = ({
                   className={`h-2 rounded-xs ${
                     idx < state.dailySedentaryExcessDays
                       ? 'bg-rose-500'
-                      : 'bg-slate-800'
+                      : 'bg-slate-200'
                   }`}
                 />
               ))}
@@ -356,7 +356,7 @@ export const SedentaryMonitor: React.FC<SedentaryMonitorProps> = ({
 
             <button
               onClick={handleLogExcessSedentaryDay}
-              className="w-full py-1.5 rounded-lg bg-rose-950/60 border border-rose-800/80 hover:bg-rose-900/70 text-rose-300 text-xs font-medium cursor-pointer transition-colors"
+              className="w-full py-1.5 rounded-lg bg-rose-500/10 border border-rose-300 hover:bg-rose-100 text-rose-700 text-xs font-medium cursor-pointer transition-colors"
             >
               {language === 'zh' ? '模拟测试：记录今日久坐超标' : 'Simulate: Log Daily Sitting Excess'}
             </button>

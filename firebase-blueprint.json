@@ -1,0 +1,107 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with health indicators, target lifespan expectation, and privacy preference",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "isAnonymous": { "type": "boolean" },
+        "birthDate": { "type": "string", "maxLength": 10 },
+        "gender": { "type": "string", "enum": ["male", "female", "other"] },
+        "targetAge": { "type": "number" },
+        "height": { "type": "number" },
+        "weight": { "type": "number" },
+        "bodyFat": { "type": "number" },
+        "fastingBloodSugar": { "type": "number" },
+        "systolicBP": { "type": "number" },
+        "diastolicBP": { "type": "number" },
+        "restingHeartRate": { "type": "number" },
+        "biologicalAgeOffset": { "type": "number" },
+        "role": { "type": "string", "enum": ["admin", "user"] },
+        "region": { "type": "string", "enum": ["mainland", "overseas"] },
+        "accountType": { "type": "string", "enum": ["username", "phone", "email", "wechat", "alipay", "google", "facebook", "whatsapp", "twitter", "anonymous"] },
+        "accountIdentifier": { "type": "string", "maxLength": 150 },
+        "acquisitionMethod": { "type": "string", "enum": ["report", "questionnaire", "manual"] },
+        "hasUploadedReport": { "type": "boolean" },
+        "uploadedReportName": { "type": "string", "maxLength": 200 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "displayName", "birthDate", "gender", "targetAge"]
+    },
+    "HealthReport": {
+      "title": "HealthReport",
+      "description": "Uploaded or parsed health checkup report record",
+      "type": "object",
+      "properties": {
+        "reportId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "reportName": { "type": "string", "maxLength": 200 },
+        "parsedAt": { "type": "string" },
+        "extractedIndicators": { "type": "object" },
+        "biologicalAgeOffset": { "type": "number" },
+        "doctorSummary": { "type": "string", "maxLength": 500 }
+      },
+      "required": ["reportId", "userId", "reportName"]
+    },
+    "QuestionnaireResponse": {
+      "title": "QuestionnaireResponse",
+      "description": "Simple health questionnaire submission for non-real-name registration",
+      "type": "object",
+      "properties": {
+        "responseId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "sleepQuality": { "type": "string", "maxLength": 50 },
+        "exerciseFrequency": { "type": "string", "maxLength": 50 },
+        "dietStyle": { "type": "string", "maxLength": 50 },
+        "sedentaryDailyHours": { "type": "number" },
+        "expectedLifespanTarget": { "type": "number" },
+        "vitalitySelfRating": { "type": "number" },
+        "bloodPressureStatus": { "type": "string", "maxLength": 50 },
+        "bloodSugarStatus": { "type": "string", "maxLength": 50 },
+        "submittedAt": { "type": "string" }
+      },
+      "required": ["responseId", "userId", "expectedLifespanTarget"]
+    },
+    "SystemConfig": {
+      "title": "SystemConfig",
+      "description": "Global system UI, motto, and metric benchmarks modifiable by Admin",
+      "type": "object",
+      "properties": {
+        "configId": { "type": "string", "maxLength": 50 },
+        "systemMotto": { "type": "string", "maxLength": 300 },
+        "bannerNotice": { "type": "string", "maxLength": 300 },
+        "appSlogan": { "type": "string", "maxLength": 200 },
+        "baselineLifespan": { "type": "number" },
+        "habitRewardSeconds": { "type": "number" },
+        "habitPenaltySeconds": { "type": "number" },
+        "sedentaryAlertMinutes": { "type": "number" },
+        "maxSedentaryHours": { "type": "number" },
+        "globalTheme": { "type": "object" },
+        "updatedAt": { "type": "string" },
+        "updatedBy": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["configId", "systemMotto", "baselineLifespan"]
+    }
+  },
+  "firestore": {
+    "/system/config": {
+      "schema": "SystemConfig",
+      "description": "Global system configurations, mottos, and benchmarks managed by admin"
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Stores user registration and health profile"
+    },
+    "/users/{userId}/reports/{reportId}": {
+      "schema": "HealthReport",
+      "description": "Stores uploaded health checkup reports and biomarker extractions"
+    },
+    "/users/{userId}/questionnaires/{responseId}": {
+      "schema": "QuestionnaireResponse",
+      "description": "Stores health questionnaire survey records"
+    }
+  }
+}

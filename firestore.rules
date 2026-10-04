@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Connection probe test document
+    match /test/connection {
+      allow read, write: if true;
+    }
+
+    // Global system configuration & motto & metrics
+    match /system/{configId} {
+      allow read: if true;
+      allow write: if isValidId(configId);
+    }
+
+    // User profile documents (supports non-real-name and multi-channel registered accounts)
+    match /users/{userId} {
+      allow get: if isValidId(userId);
+      allow list: if true;
+      allow create: if isValidId(userId);
+      allow update: if isValidId(userId);
+      allow delete: if isValidId(userId);
+
+      // Uploaded checkup reports subcollection
+      match /reports/{reportId} {
+        allow read, write: if isValidId(userId) && isValidId(reportId);
+      }
+
+      // Questionnaire responses subcollection
+      match /questionnaires/{responseId} {
+        allow read, write: if isValidId(userId) && isValidId(responseId);
+      }
+    }
+  }
+}

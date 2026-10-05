@@ -432,7 +432,11 @@ export const ThemeCustomizerModal: React.FC<ThemeCustomizerModalProps> = ({
                     <button
                       key={a.id}
                       type="button"
-                      onClick={() => { setAssistantAvatarId(a.id); localStorage.setItem(ASSISTANT_AVATAR_KEY, a.id); }}
+                      onClick={() => {
+                        setAssistantAvatarId(a.id);
+                        localStorage.setItem(ASSISTANT_AVATAR_KEY, a.id);
+                        window.dispatchEvent(new Event('bd_assistant_avatar_changed'));
+                      }}
                       className={`p-2 rounded-2xl border text-center transition-all cursor-pointer relative group ${
                         isSel ? 'bg-slate-800 border-emerald-500 shadow-md shadow-emerald-500/10' : 'bg-slate-950/70 border-slate-800 hover:border-slate-700 hover:bg-slate-900'
                       }`}

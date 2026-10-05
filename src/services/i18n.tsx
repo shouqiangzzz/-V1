@@ -240,7 +240,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 export const useLanguage = (): LanguageContextType => {
   const context = useContext(LanguageContext);
   if (!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
+    return {
+      language: 'zh',
+      setLanguage: () => {},
+      t: translations.zh,
+    };
   }
   return context;
 };

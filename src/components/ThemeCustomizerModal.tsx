@@ -41,12 +41,12 @@ export const ThemeCustomizerModal: React.FC<ThemeCustomizerModalProps> = ({
 
   // Avatar state
   const [currentAvatar, setCurrentAvatar] = useState<string>(
-    profile.avatarUrl || 'https://api.dicebear.com/7.x/bottts/svg?seed=LifeSeeker88'
+    profile.avatarUrl || '/avatars/naruto.jpg'
   );
   const [avatarType, setAvatarType] = useState<'preset' | 'custom' | 'cartoon'>(
     profile.avatarType || 'preset'
   );
-  const [avatarFilter, setAvatarFilter] = useState<'all' | 'animal' | 'cyber' | 'nature' | 'cartoon'>('all');
+  const [avatarFilter, setAvatarFilter] = useState<'all' | 'animal' | 'cyber' | 'nature' | 'cartoon' | 'naruto'>('all');
   const [customUrlInput, setCustomUrlInput] = useState<string>('');
   const [uploadError, setUploadError] = useState<string | null>(null);
 
@@ -165,7 +165,7 @@ export const ThemeCustomizerModal: React.FC<ThemeCustomizerModalProps> = ({
   // Reset to initial default
   const handleResetToDefault = () => {
     setTheme(DEFAULT_THEME_CONFIG);
-    setCurrentAvatar('https://api.dicebear.com/7.x/bottts/svg?seed=LifeSeeker88');
+    setCurrentAvatar('/avatars/naruto.jpg');
     setAvatarType('preset');
   };
 
@@ -361,6 +361,12 @@ export const ThemeCustomizerModal: React.FC<ThemeCustomizerModalProps> = ({
                     className={`px-2 py-0.5 rounded-lg text-[11px] ${avatarFilter === 'nature' ? 'bg-slate-800 text-white' : 'text-slate-400'}`}
                   >
                     生机
+                  </button>
+                  <button
+                    onClick={() => setAvatarFilter('naruto')}
+                    className={`px-2 py-0.5 rounded-lg text-[11px] ${avatarFilter === 'naruto' ? 'bg-rose-500 text-white' : 'text-slate-400'}`}
+                  >
+                    火影
                   </button>
                 </div>
               </div>

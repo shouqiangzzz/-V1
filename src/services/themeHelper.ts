@@ -103,7 +103,7 @@ export const THEME_PRESETS: Record<BackgroundStyle, {
 export interface CartoonAvatar {
   id: string;
   name: string;
-  category: 'cartoon' | 'cyber' | 'animal' | 'nature';
+  category: 'cartoon' | 'cyber' | 'animal' | 'nature' | 'naruto';
   url: string;
   badge: string;
 }
@@ -192,6 +192,50 @@ export const CARTOON_AVATARS: CartoonAvatar[] = [
     category: 'nature',
     url: 'https://api.dicebear.com/7.x/bottts/svg?seed=LifeTreeGuardian&backgroundColor=10b981',
     badge: '自律',
+  },
+
+  // ===== Naruto (火影忍者) character avatars =====
+  {
+    id: 'naruto_uzumaki',
+    name: '漩涡鸣人',
+    category: 'naruto',
+    url: '/avatars/naruto.jpg',
+    badge: '木叶',
+  },
+  {
+    id: 'sasuke_uchiha',
+    name: '宇智波佐助',
+    category: 'naruto',
+    url: '/avatars/sasuke.jpg',
+    badge: '宇智波',
+  },
+  {
+    id: 'kakashi_hatake',
+    name: '旗木卡卡西',
+    category: 'naruto',
+    url: '/avatars/kakashi.jpg',
+    badge: '写轮眼',
+  },
+  {
+    id: 'itachi_uchiha',
+    name: '宇智波鼬',
+    category: 'naruto',
+    url: '/avatars/itachi.jpg',
+    badge: '晓',
+  },
+  {
+    id: 'gaara_sabaku',
+    name: '我爱罗',
+    category: 'naruto',
+    url: '/avatars/gaara.jpg',
+    badge: '砂隐',
+  },
+  {
+    id: 'sakura_haruno',
+    name: '春野樱',
+    category: 'naruto',
+    url: '/avatars/sakura.jpg',
+    badge: '医疗忍',
   },
 ];
 

@@ -46,7 +46,7 @@ export const ThemeCustomizerModal: React.FC<ThemeCustomizerModalProps> = ({
   const [avatarType, setAvatarType] = useState<'preset' | 'custom' | 'cartoon'>(
     profile.avatarType || 'preset'
   );
-  const [avatarFilter, setAvatarFilter] = useState<'all' | 'animal' | 'cyber' | 'nature' | 'cartoon' | 'naruto'>('all');
+  const [avatarFilter, setAvatarFilter] = useState<'all' | 'naruto' | 'anime' | 'guofeng' | 'scenery'>('all');
   const [customUrlInput, setCustomUrlInput] = useState<string>('');
   const [uploadError, setUploadError] = useState<string | null>(null);
 
@@ -340,33 +340,33 @@ export const ThemeCustomizerModal: React.FC<ThemeCustomizerModalProps> = ({
                 <div className="flex items-center space-x-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
                   <button
                     onClick={() => setAvatarFilter('all')}
-                    className={`px-2 py-0.5 rounded-lg text-[11px] ${avatarFilter === 'all' ? 'bg-slate-800 text-white' : 'text-slate-400'}`}
+                    className={`px-2 py-0.5 rounded-lg text-[11px] ${avatarFilter === 'all' ? 'bg-slate-700 text-white' : 'text-slate-400'}`}
                   >
                     全部
-                  </button>
-                  <button
-                    onClick={() => setAvatarFilter('animal')}
-                    className={`px-2 py-0.5 rounded-lg text-[11px] ${avatarFilter === 'animal' ? 'bg-slate-800 text-white' : 'text-slate-400'}`}
-                  >
-                    萌宠
-                  </button>
-                  <button
-                    onClick={() => setAvatarFilter('cyber')}
-                    className={`px-2 py-0.5 rounded-lg text-[11px] ${avatarFilter === 'cyber' ? 'bg-slate-800 text-white' : 'text-slate-400'}`}
-                  >
-                    赛博
-                  </button>
-                  <button
-                    onClick={() => setAvatarFilter('nature')}
-                    className={`px-2 py-0.5 rounded-lg text-[11px] ${avatarFilter === 'nature' ? 'bg-slate-800 text-white' : 'text-slate-400'}`}
-                  >
-                    生机
                   </button>
                   <button
                     onClick={() => setAvatarFilter('naruto')}
                     className={`px-2 py-0.5 rounded-lg text-[11px] ${avatarFilter === 'naruto' ? 'bg-rose-500 text-white' : 'text-slate-400'}`}
                   >
                     火影
+                  </button>
+                  <button
+                    onClick={() => setAvatarFilter('anime')}
+                    className={`px-2 py-0.5 rounded-lg text-[11px] ${avatarFilter === 'anime' ? 'bg-sky-500 text-white' : 'text-slate-400'}`}
+                  >
+                    日漫
+                  </button>
+                  <button
+                    onClick={() => setAvatarFilter('guofeng')}
+                    className={`px-2 py-0.5 rounded-lg text-[11px] ${avatarFilter === 'guofeng' ? 'bg-amber-500 text-white' : 'text-slate-400'}`}
+                  >
+                    国风
+                  </button>
+                  <button
+                    onClick={() => setAvatarFilter('scenery')}
+                    className={`px-2 py-0.5 rounded-lg text-[11px] ${avatarFilter === 'scenery' ? 'bg-emerald-500 text-white' : 'text-slate-400'}`}
+                  >
+                    风景
                   </button>
                 </div>
               </div>

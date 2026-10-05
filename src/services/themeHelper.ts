@@ -103,98 +103,13 @@ export const THEME_PRESETS: Record<BackgroundStyle, {
 export interface CartoonAvatar {
   id: string;
   name: string;
-  category: 'cartoon' | 'cyber' | 'animal' | 'nature' | 'naruto';
+  category: 'naruto' | 'anime' | 'guofeng' | 'scenery';
   url: string;
   badge: string;
 }
 
 export const CARTOON_AVATARS: CartoonAvatar[] = [
-  {
-    id: 'bot_mecha',
-    name: '寿命机甲',
-    category: 'cyber',
-    url: 'https://api.dicebear.com/7.x/bottts/svg?seed=LifeMecha99&backgroundColor=0284c7',
-    badge: '赛博',
-  },
-  {
-    id: 'zen_cat',
-    name: '禅修猫咪',
-    category: 'animal',
-    url: 'https://api.dicebear.com/7.x/bottts/svg?seed=ZenKittyCat&backgroundColor=10b981',
-    badge: '萌愈',
-  },
-  {
-    id: 'fox_biohacker',
-    name: '极客灵狐',
-    category: 'animal',
-    url: 'https://api.dicebear.com/7.x/bottts/svg?seed=BiohackFox&backgroundColor=f59e0b',
-    badge: '机敏',
-  },
-  {
-    id: 'panda_master',
-    name: '养生大侠',
-    category: 'animal',
-    url: 'https://api.dicebear.com/7.x/bottts/svg?seed=DisciplinedPanda&backgroundColor=059669',
-    badge: '长寿',
-  },
-  {
-    id: 'astro_traveler',
-    name: '深空领航员',
-    category: 'cyber',
-    url: 'https://api.dicebear.com/7.x/bottts/svg?seed=StarNavigator&backgroundColor=6366f1',
-    badge: '探索',
-  },
-  {
-    id: 'silver_sage',
-    name: '未来仙者',
-    category: 'cartoon',
-    url: 'https://api.dicebear.com/7.x/bottts/svg?seed=SilverSageLongevity&backgroundColor=8b5cf6',
-    badge: '睿智',
-  },
-  {
-    id: 'sun_seed',
-    name: '向阳萌芽',
-    category: 'nature',
-    url: 'https://api.dicebear.com/7.x/bottts/svg?seed=SunSprout&backgroundColor=84cc16',
-    badge: '生机',
-  },
-  {
-    id: 'aqua_dolphin',
-    name: '深潜海豚',
-    category: 'animal',
-    url: 'https://api.dicebear.com/7.x/bottts/svg?seed=DeepAquaDolphin&backgroundColor=06b6d4',
-    badge: '活力',
-  },
-  {
-    id: 'fire_lion',
-    name: '能量战狮',
-    category: 'animal',
-    url: 'https://api.dicebear.com/7.x/bottts/svg?seed=FlameHeartLion&backgroundColor=f43f5e',
-    badge: '力量',
-  },
-  {
-    id: 'owl_scholar',
-    name: '明昼之鸮',
-    category: 'cartoon',
-    url: 'https://api.dicebear.com/7.x/bottts/svg?seed=MindfulOwl&backgroundColor=d97706',
-    badge: '专注',
-  },
-  {
-    id: 'neon_pulse',
-    name: '电光行者',
-    category: 'cyber',
-    url: 'https://api.dicebear.com/7.x/bottts/svg?seed=NeonRunnerPulse&backgroundColor=14b8a6',
-    badge: '敏捷',
-  },
-  {
-    id: 'sprout_guardian',
-    name: '生命守护精灵',
-    category: 'nature',
-    url: 'https://api.dicebear.com/7.x/bottts/svg?seed=LifeTreeGuardian&backgroundColor=10b981',
-    badge: '自律',
-  },
-
-  // ===== Naruto (火影忍者) character avatars =====
+  // ===== 火影忍者 Naruto =====
   {
     id: 'naruto_uzumaki',
     name: '漩涡鸣人',
@@ -237,6 +152,44 @@ export const CARTOON_AVATARS: CartoonAvatar[] = [
     url: '/avatars/sakura.jpg',
     badge: '医疗忍',
   },
+
+  // ===== 日漫 Anime（犬夜叉 / 海贼 / 龙珠 / 鬼灭 / 灌篮）=====
+  { id: 'inuyasha',    name: '犬夜叉',   category: 'anime', url: '/avatars/inuyasha.jpg',    badge: '半妖' },
+  { id: 'sesshomaru',  name: '杀生丸',   category: 'anime', url: '/avatars/sesshomaru.jpg',  badge: '妖贵公子' },
+  { id: 'kagome',      name: '日暮戈薇', category: 'anime', url: '/avatars/kagome.jpg',      badge: '四魂' },
+  { id: 'kikyo',       name: '桔梗',     category: 'anime', url: '/avatars/kikyo.jpg',       badge: '巫女' },
+  { id: 'luffy',       name: '蒙奇·路飞', category: 'anime', url: '/avatars/luffy.jpg',      badge: '草帽' },
+  { id: 'zoro',        name: '罗罗诺亚·索隆', category: 'anime', url: '/avatars/zoro.jpg',  badge: '三刀流' },
+  { id: 'goku',        name: '孙悟空',   category: 'anime', url: '/avatars/goku.jpg',        badge: '赛亚人' },
+  { id: 'vegeta',      name: '贝吉塔',   category: 'anime', url: '/avatars/vegeta.jpg',      badge: '赛亚王子' },
+  { id: 'tanjiro',     name: '灶门炭治郎', category: 'anime', url: '/avatars/tanjiro.jpg',    badge: '水之呼吸' },
+  { id: 'nezuko',      name: '灶门祢豆子', category: 'anime', url: '/avatars/nezuko.jpg',    badge: '鬼妹' },
+  { id: 'hanamichi',   name: '樱木花道', category: 'anime', url: '/avatars/hanamichi.jpg',   badge: '天才篮球' },
+  { id: 'rukawa',      name: '流川枫',   category: 'anime', url: '/avatars/rukawa.jpg',      badge: '王牌' },
+
+  // ===== 国风（三国 / 斗罗大陆 / 遮天 / 完美世界）=====
+  { id: 'guanyu',      name: '关羽',     category: 'guofeng', url: '/avatars/guanyu.jpg',      badge: '武圣' },
+  { id: 'zhugeliang',  name: '诸葛亮',   category: 'guofeng', url: '/avatars/zhugeliang.jpg',  badge: '卧龙' },
+  { id: 'zhaoyun',     name: '赵云',     category: 'guofeng', url: '/avatars/zhaoyun.jpg',     badge: '常山' },
+  { id: 'caocao',      name: '曹操',     category: 'guofeng', url: '/avatars/caocao.jpg',      badge: '枭雄' },
+  { id: 'liubei',      name: '刘备',     category: 'guofeng', url: '/avatars/liubei.jpg',      badge: '仁德' },
+  { id: 'zhangfei',    name: '张飞',     category: 'guofeng', url: '/avatars/zhangfei.jpg',    badge: '猛将' },
+  { id: 'tangsan',     name: '唐三',     category: 'guofeng', url: '/avatars/tangsan.jpg',     badge: '斗罗' },
+  { id: 'xiaowu',      name: '小舞',     category: 'guofeng', url: '/avatars/xiaowu.jpg',      badge: '柔骨兔' },
+  { id: 'yefan',       name: '叶凡',     category: 'guofeng', url: '/avatars/yefan.jpg',       badge: '遮天' },
+  { id: 'henren',      name: '狠人大帝', category: 'guofeng', url: '/avatars/henren.jpg',      badge: '才情' },
+  { id: 'shihou',      name: '石昊',     category: 'guofeng', url: '/avatars/shihou.jpg',      badge: '荒天帝' },
+  { id: 'liushen',     name: '柳神',     category: 'guofeng', url: '/avatars/liushen.jpg',     badge: '祭灵' },
+
+  // ===== 有名风景 Scenery =====
+  { id: 'fuji',        name: '富士山',     category: 'scenery', url: '/avatars/fuji.jpg',        badge: '日本' },
+  { id: 'huangshan',   name: '黄山迎客松', category: 'scenery', url: '/avatars/huangshan.jpg',   badge: '安徽' },
+  { id: 'guilin',      name: '桂林山水',   category: 'scenery', url: '/avatars/guilin.jpg',      badge: '广西' },
+  { id: 'zhangjiajie', name: '张家界',     category: 'scenery', url: '/avatars/zhangjiajie.jpg', badge: '湖南' },
+  { id: 'jiuzhaigou',  name: '九寨沟',     category: 'scenery', url: '/avatars/jiuzhaigou.jpg',  badge: '四川' },
+  { id: 'greatwall',   name: '万里长城',   category: 'scenery', url: '/avatars/greatwall.jpg',   badge: '北京' },
+  { id: 'xihu',        name: '杭州西湖',   category: 'scenery', url: '/avatars/xihu.jpg',        badge: '浙江' },
+  { id: 'taishan',     name: '泰山日出',   category: 'scenery', url: '/avatars/taishan.jpg',     badge: '山东' },
 ];
 
 // ====== 10 New UI Style Presets (CSS-variable driven, full light & dark palettes) ======

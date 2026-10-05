@@ -479,7 +479,8 @@ Whether analyzing physical discomfort, fasting protocols, Zone 2 cardio, or biom
         profile,
         language,
         wearables,
-        habits
+        habits,
+        assistantAvatarId
       );
 
       if (isCancelledRef.current) return;

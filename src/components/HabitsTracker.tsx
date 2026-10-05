@@ -259,28 +259,28 @@ export const HabitsTracker: React.FC<HabitsTrackerProps> = ({
         </div>
 
         {/* Personalized Benchmark Advice based on user's metrics */}
-        <div className="flex items-center space-x-2 shrink-0">
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
           <button
             onClick={onOpenFoodScanner}
-            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-700 hover:bg-cyan-100 text-xs font-semibold cursor-pointer transition-all"
+            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-700 hover:bg-cyan-100 text-xs font-semibold cursor-pointer transition-all whitespace-nowrap"
           >
-            <Camera className="w-3.5 h-3.5" />
+            <Camera className="w-3.5 h-3.5 shrink-0" />
             <span>{language === 'zh' ? '拍照AI饮食识别' : 'Food AI Scan'}</span>
           </button>
 
           <button
             onClick={onOpenSedentary}
-            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-700 hover:bg-amber-100 text-xs font-semibold cursor-pointer transition-all"
+            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-700 hover:bg-amber-100 text-xs font-semibold cursor-pointer transition-all whitespace-nowrap"
           >
-            <Armchair className="w-3.5 h-3.5" />
+            <Armchair className="w-3.5 h-3.5 shrink-0" />
             <span>{language === 'zh' ? '开启久坐后台检测' : 'Sedentary Guard'}</span>
           </button>
 
           <button
             onClick={onOpenRules}
-            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-[var(--bd-card)] border border-[var(--bd-border)] text-[var(--bd-text)] hover:bg-[var(--bd-chip)] text-xs font-semibold cursor-pointer transition-all"
+            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-[var(--bd-card)] border border-[var(--bd-border)] text-[var(--bd-text)] hover:bg-[var(--bd-chip)] text-xs font-semibold cursor-pointer transition-all whitespace-nowrap"
           >
-            <Sliders className="w-3.5 h-3.5 text-[var(--bd-sub)]" />
+            <Sliders className="w-3.5 h-3.5 text-[var(--bd-sub)] shrink-0" />
             <span>{language === 'zh' ? '差异化标准' : 'Custom Rules'}</span>
           </button>
         </div>

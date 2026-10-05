@@ -213,7 +213,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenOnboarding}
             title={language === 'zh' ? "用户注册：支持大陆与海外多元通道（内容设置完全可选）" : "User Registration"}
-            className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600/15 to-teal-600/15 hover:from-emerald-600/25 hover:to-teal-600/25 border border-emerald-500/40 text-[var(--bd-accent-strong)] transition-all text-xs font-semibold cursor-pointer shadow-xs"
+            className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600/15 to-teal-600/15 hover:from-emerald-600/25 hover:to-teal-600/25 border border-emerald-500/40 text-[var(--bd-accent-strong)] transition-all text-xs font-semibold cursor-pointer shadow-xs shrink-0 whitespace-nowrap"
           >
             <UserPlus className="w-3.5 h-3.5 text-[var(--bd-accent)]" />
             <span className="font-medium">{t.onboardingBtn}</span>

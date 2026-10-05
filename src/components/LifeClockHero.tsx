@@ -230,11 +230,11 @@ export const LifeClockHero: React.FC<LifeClockHeroProps> = ({
               </div>
             </button>
             <div>
-              <div className="flex items-center space-x-2">
-                <h2 className="text-lg font-bold text-[var(--bd-text)] tracking-tight">
+              <div className="flex flex-wrap items-center gap-2">
+                <h2 className="text-lg font-bold text-[var(--bd-text)] tracking-tight leading-snug">
                   {localizedName}{t.heroTitleSuffix}
                 </h2>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--bd-chip)] text-[var(--bd-text)] border border-[var(--bd-border)]">
+                <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--bd-chip)] text-[var(--bd-text)] border border-[var(--bd-border)] whitespace-nowrap">
                   {t.targetGoalPrefix}{profile.targetAge} {t.yearsUnit}
                 </span>
               </div>

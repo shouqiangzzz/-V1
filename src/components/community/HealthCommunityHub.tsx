@@ -281,7 +281,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
             {/* Refresh Feed Button */}
             <button
               onClick={() => setRefreshSeed(s => s + 1)}
-              className="px-3 py-1.5 rounded-xl bg-[var(--bd-chip)] hover:bg-[var(--bd-border)] border border-[var(--bd-border)] text-[var(--bd-sub)] text-xs font-semibold flex items-center space-x-1.5 cursor-pointer transition-all shadow-xs"
+              className="px-3 py-1.5 rounded-xl bg-[var(--bd-chip)] hover:bg-[var(--bd-border)] border border-[var(--bd-border)] text-[var(--bd-sub)] text-xs font-semibold flex items-center space-x-1.5 cursor-pointer transition-all shadow-xs whitespace-nowrap shrink-0"
               title={language === 'zh' ? "刷新AI算法推测推荐池" : "Refresh recommendations"}
             >
               <RotateCcw className="w-3.5 h-3.5 text-cyan-400" />
@@ -291,7 +291,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
             {/* Upload Post Button (XiaoHongShu Red Action) */}
             <button
               onClick={onOpenUploadPost}
-              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:opacity-95 text-white font-bold text-xs flex items-center space-x-1.5 shadow-md shadow-rose-500/20 cursor-pointer transition-all"
+              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:opacity-95 text-white font-bold text-xs flex items-center space-x-1.5 shadow-md shadow-rose-500/20 cursor-pointer transition-all whitespace-nowrap shrink-0"
             >
               <Plus className="w-4 h-4 text-white" />
               <span>{language === 'zh' ? '发笔记/视频' : 'Post Note'}</span>
@@ -301,7 +301,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
             {onOpenContract && (
               <button
                 onClick={onOpenContract}
-                className="px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-semibold flex items-center space-x-1.5 cursor-pointer hover:bg-amber-500/25 transition-all shadow-xs"
+                className="px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-semibold flex items-center space-x-1.5 cursor-pointer hover:bg-amber-500/25 transition-all shadow-xs whitespace-nowrap shrink-0"
                 title="健康搭子与契约对赌"
               >
                 <Users className="w-3.5 h-3.5 text-amber-400" />
@@ -313,7 +313,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
             {onOpenConsultation && (
               <button
                 onClick={onOpenConsultation}
-                className="px-3 py-1.5 rounded-xl bg-teal-500/15 border border-teal-500/40 text-teal-300 text-xs font-semibold flex items-center space-x-1.5 cursor-pointer hover:bg-teal-500/25 transition-all shadow-xs"
+                className="px-3 py-1.5 rounded-xl bg-teal-500/15 border border-teal-500/40 text-teal-300 text-xs font-semibold flex items-center space-x-1.5 cursor-pointer hover:bg-teal-500/25 transition-all shadow-xs whitespace-nowrap shrink-0"
                 title="预约长寿医学专家 1 对 1 咨询"
               >
                 <Stethoscope className="w-3.5 h-3.5 text-teal-400" />
@@ -325,7 +325,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
             {onOpenARShare && (
               <button
                 onClick={onOpenARShare}
-                className="px-3 py-1.5 rounded-xl bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 text-xs font-semibold flex items-center space-x-1.5 cursor-pointer hover:bg-cyan-500/25 transition-all shadow-xs"
+                className="px-3 py-1.5 rounded-xl bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 text-xs font-semibold flex items-center space-x-1.5 cursor-pointer hover:bg-cyan-500/25 transition-all shadow-xs whitespace-nowrap shrink-0"
                 title="运动轨迹与生机餐 AR 海报生成"
               >
                 <Share2 className="w-3.5 h-3.5 text-cyan-400" />
@@ -336,7 +336,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
             {/* Merchant Certification Entry */}
             <button
               onClick={onOpenMerchantCert}
-              className={`px-3 py-1.5 rounded-xl border text-xs font-semibold flex items-center space-x-1 cursor-pointer transition-all ${
+              className={`px-3 py-1.5 rounded-xl border text-xs font-semibold flex items-center space-x-1 cursor-pointer transition-all whitespace-nowrap shrink-0 ${
                 merchantCert.isVerified
                   ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300'
                   : 'bg-[var(--bd-chip)] border-[var(--bd-border)] text-[var(--bd-sub)] hover:bg-[var(--bd-border)]'

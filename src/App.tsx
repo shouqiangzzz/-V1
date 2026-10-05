@@ -477,7 +477,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-6 sm:pt-4 sm:pb-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-24 sm:pt-4 sm:pb-8">
         
         {/* Core Showpiece: The Life Clock Hero Countdown is visible across views or at top */}
         <LifeClockHero

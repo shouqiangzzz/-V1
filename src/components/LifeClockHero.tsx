@@ -193,7 +193,7 @@ export const LifeClockHero: React.FC<LifeClockHeroProps> = ({
         </div>
 
         {/* The Two Main Modules: Box 1 (Left) and Box 2 (Right) Vertically Aligned (上下对齐) */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           
           {/* Box 1: User Identity, Lifespan Target & Actual Age */}
           <div className="flex items-center space-x-4">
@@ -272,7 +272,7 @@ export const LifeClockHero: React.FC<LifeClockHeroProps> = ({
           {/* Box 2: Biological Age & Health Offset Badge (Right-aligned, vertically aligned with Box 1) */}
           <div 
             onClick={onOpenProfile}
-            className="flex items-center space-x-3 px-3.5 py-2 rounded-2xl bg-[var(--bd-card)] border border-[var(--bd-border)] hover:border-[var(--bd-accent)] cursor-pointer transition-all group shadow-sm shrink-0 self-start lg:self-center"
+            className="flex items-center space-x-3 px-3.5 py-2 rounded-2xl bg-[var(--bd-card)] border border-[var(--bd-border)] hover:border-[var(--bd-accent)] cursor-pointer transition-all group shadow-sm shrink-0 self-start sm:self-center"
           >
             <div className={`p-2 rounded-xl shrink-0 ${isBioYounger ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)]' : 'bg-amber-500/10 text-amber-600'}`}>
               <Activity className="w-4 h-4" />

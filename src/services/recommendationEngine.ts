@@ -1,4 +1,9 @@
 import { ExpertLectureVideo, CommunityPost } from '../types';
+import { 
+  COMMUNITY_EN_TRANSLATIONS, 
+  translateCategory, 
+  translateTag 
+} from './communityTranslations';
 
 export interface WatchHistoryRecord {
   id: string;
@@ -200,7 +205,8 @@ export function rankContentForUser(
   videos: ExpertLectureVideo[],
   posts: CommunityPost[],
   userProfile?: UserInterestProfile,
-  selectedCategory?: string
+  selectedCategory?: string,
+  language: 'zh' | 'en' = 'zh'
 ): ScoredContentItem[] {
   const profile = userProfile || getUserInterestProfile();
   const allItems: ScoredContentItem[] = [];
@@ -208,22 +214,29 @@ export function rankContentForUser(
   // Convert expert videos to feed items
   videos.forEach(v => {
     const zhCategory = CATEGORY_MAP[v.category] || '细胞抗衰';
-    const tags = [zhCategory, '前沿长寿医学', '权威讲座', '逆龄研究'];
+    const rawTags = [zhCategory, '前沿长寿医学', '权威讲座', '逆龄研究'];
+    const trans = language === 'en' ? COMMUNITY_EN_TRANSLATIONS[v.id] : undefined;
+
+    const finalTitle = trans?.title || (language === 'en' ? v.titleEn : undefined) || v.title;
+    const finalSpeaker = trans?.speaker || v.speaker;
+    const finalSpeakerRole = trans?.speakerTitle || v.speakerTitle;
+    const finalDescription = trans?.description || v.description || v.keyTakeaways?.join(' · ') || '';
+    const finalTags = trans?.tags || rawTags.map(t => translateTag(t, language));
 
     allItems.push({
       id: v.id,
       type: 'video',
-      title: v.title,
-      summary: v.description || v.keyTakeaways?.join(' · ') || '',
+      title: finalTitle,
+      summary: finalDescription,
       coverUrl: v.coverUrl,
       videoUrl: v.videoUrl,
       mediaType: 'video',
-      authorName: v.speaker,
+      authorName: finalSpeaker,
       authorAvatar: v.speakerAvatar,
       authorId: 'expert_' + v.id,
-      authorRole: v.speakerTitle,
+      authorRole: finalSpeakerRole,
       category: zhCategory,
-      tags: tags,
+      tags: finalTags,
       durationText: v.duration,
       durationMinutes: Math.round(Number(v.duration.split(':')[0]) || 20),
       likesCount: v.likesCount || 1280,
@@ -245,23 +258,28 @@ export function rankContentForUser(
     else if (p.tags.some(t => t.includes('坐') || t.includes('动') || t.includes('健身') || t.includes('心肺'))) category = '心肺运动';
     else if (p.tags.some(t => t.includes('抗衰') || t.includes('基因') || t.includes('细胞'))) category = '细胞抗衰';
 
-    // XiaoHongShu title: extract first sentence or 25 chars
+    const trans = language === 'en' ? COMMUNITY_EN_TRANSLATIONS[p.id] : undefined;
     const contentLines = p.content.split('\n').filter(Boolean);
-    const title = contentLines[0] ? (contentLines[0].length > 36 ? contentLines[0].substring(0, 36) + '...' : contentLines[0]) : '长寿健康探索笔记';
+    const fallbackTitle = contentLines[0] ? (contentLines[0].length > 36 ? contentLines[0].substring(0, 36) + '...' : contentLines[0]) : '长寿健康探索笔记';
+    const finalTitle = trans?.title || fallbackTitle;
+    const finalContent = trans?.content || p.content;
+    const finalAuthor = trans?.authorName || p.authorName;
+    const rawTags = p.tags && p.tags.length > 0 ? p.tags : [category];
+    const finalTags = trans?.tags || rawTags.map(t => translateTag(t, language));
 
     allItems.push({
       id: p.id,
       type: 'post',
-      title: title,
-      summary: p.content,
+      title: finalTitle,
+      summary: finalContent,
       coverUrl: p.mediaUrl || p.videoThumbnail || 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80',
       videoUrl: p.mediaType === 'video' ? p.mediaUrl : undefined,
       mediaType: p.mediaType === 'video' ? 'video' : 'image',
-      authorName: p.authorName,
+      authorName: finalAuthor,
       authorAvatar: p.authorAvatar,
       authorId: p.authorId,
       category,
-      tags: p.tags && p.tags.length > 0 ? p.tags : [category],
+      tags: finalTags,
       likesCount: p.likesCount,
       viewsCount: p.viewsCount || (p.likesCount * 9) + 120,
       commentsCount: p.comments.length,
@@ -275,20 +293,26 @@ export function rankContentForUser(
   // Score each item based on XiaoHongShu AI algorithm
   const scored = allItems.map(item => {
     let score = 55; // baseline interest
-    let reason = '热门长寿精选推荐';
+    let reason = language === 'en' ? 'Featured Longevity Pick' : '热门长寿精选推荐';
 
     // 1. Category affinity match (0 - 30 points)
     const catWeight = profile.categoryWeights[item.category] || 0;
     if (catWeight > 0) {
       score += catWeight * 25;
-      reason = `基于您对【${item.category}】的深度观看兴趣`;
+      const catLabel = language === 'en' ? translateCategory(item.category, 'en') : item.category;
+      reason = language === 'en'
+        ? `Based on your interest in [${catLabel}]`
+        : `基于您对【${item.category}】的深度观看兴趣`;
     }
 
     // 2. Tag intersection match (0 - 20 points)
-    const matchingTags = item.tags.filter(t => profile.topTags.includes(t));
+    const matchingTags = item.tags.filter(t => profile.topTags.includes(t) || profile.topTags.some(pt => translateTag(pt, 'en') === t));
     if (matchingTags.length > 0) {
       score += Math.min(20, matchingTags.length * 7);
-      reason = `命中您常看的「${matchingTags[0]}」等长寿关键词`;
+      const tagLabel = language === 'en' ? translateTag(matchingTags[0], 'en') : matchingTags[0];
+      reason = language === 'en'
+        ? `Matches keywords like "${tagLabel}" you often watch`
+        : `命中您常看的「${matchingTags[0]}」等长寿关键词`;
     }
 
     // 3. Media format bonus (video vs image preference)
@@ -312,10 +336,12 @@ export function rankContentForUser(
 
   // Filter by user selected category if active
   let result = scored;
-  if (selectedCategory && selectedCategory !== '全部') {
+  if (selectedCategory && selectedCategory !== '全部' && selectedCategory !== 'All') {
     result = result.filter(item => 
       item.category.includes(selectedCategory) || 
-      item.tags.some(t => t.includes(selectedCategory))
+      item.tags.some(t => t.includes(selectedCategory)) ||
+      translateCategory(item.category, 'en').toLowerCase().includes(selectedCategory.toLowerCase()) ||
+      item.tags.some(t => translateTag(t, 'en').toLowerCase().includes(selectedCategory.toLowerCase()))
     );
   }
 

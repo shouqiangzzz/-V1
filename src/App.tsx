@@ -116,6 +116,7 @@ export const App: React.FC = () => {
   const [isTimeBankOpen, setIsTimeBankOpen] = useState(false);
   const [isTimeCapsuleOpen, setIsTimeCapsuleOpen] = useState(false);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [selectedConsultationExpertId, setSelectedConsultationExpertId] = useState<string | undefined>(undefined);
 
   // Active view tab
   const [activeTab, setActiveTab] = useState<'clock' | 'habits' | 'sedentary' | 'grid' | 'community'>('clock');
@@ -857,9 +858,13 @@ export const App: React.FC = () => {
 
       <ExpertConsultationModal
         isOpen={isConsultationOpen}
-        onClose={() => setIsConsultationOpen(false)}
+        onClose={() => {
+          setIsConsultationOpen(false);
+          setSelectedConsultationExpertId(undefined);
+        }}
         wallet={wallet}
         onUpdateWallet={handleUpdateWallet}
+        initialExpertId={selectedConsultationExpertId}
       />
 
       {/* 24-Hour AI Longevity Copilot (Floating Assistant) */}
@@ -867,7 +872,10 @@ export const App: React.FC = () => {
         profile={profile}
         habits={habits}
         wearables={wearables}
-        onOpenConsultation={() => setIsConsultationOpen(true)}
+        onOpenConsultation={(expertId?: string) => {
+          if (expertId) setSelectedConsultationExpertId(expertId);
+          setIsConsultationOpen(true);
+        }}
       />
 
     </div>

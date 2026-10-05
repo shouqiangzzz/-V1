@@ -9,6 +9,7 @@
     "preview": "vite preview --port 3000"
   },
   "dependencies": {
+    "@google/genai": "^2.27.0",
     "clsx": "^2.1.1",
     "firebase": "^12.19.0",
     "lucide-react": "^0.475.0",

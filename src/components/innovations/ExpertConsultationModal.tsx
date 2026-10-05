@@ -21,6 +21,7 @@ interface ExpertConsultationModalProps {
   onClose: () => void;
   wallet: LifeCoinWallet;
   onUpdateWallet: (newWallet: LifeCoinWallet) => void;
+  initialExpertId?: string;
 }
 
 export const ExpertConsultationModal: React.FC<ExpertConsultationModalProps> = ({
@@ -28,12 +29,25 @@ export const ExpertConsultationModal: React.FC<ExpertConsultationModalProps> = (
   onClose,
   wallet,
   onUpdateWallet,
+  initialExpertId,
 }) => {
   const { language } = useLanguage();
-  const [selectedExpert, setSelectedExpert] = useState<ExpertConsultationProfile | null>(null);
+  const [selectedExpert, setSelectedExpert] = useState<ExpertConsultationProfile | null>(() => {
+    if (initialExpertId) {
+      return EXPERT_CONSULTATION_LIST.find(e => e.id === initialExpertId) || null;
+    }
+    return null;
+  });
   const [selectedSlot, setSelectedSlot] = useState<string>('');
   const [consultType, setConsultType] = useState<'video' | 'voice' | 'report_audit'>('video');
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
+
+  React.useEffect(() => {
+    if (initialExpertId && isOpen) {
+      const match = EXPERT_CONSULTATION_LIST.find(e => e.id === initialExpertId);
+      if (match) setSelectedExpert(match);
+    }
+  }, [initialExpertId, isOpen]);
 
   if (!isOpen) return null;
 

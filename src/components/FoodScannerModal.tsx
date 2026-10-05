@@ -11,7 +11,10 @@ import {
   TrendingUp, 
   PieChart, 
   PlusCircle, 
-  RefreshCw 
+  RefreshCw,
+  ThumbsUp,
+  ThumbsDown,
+  Check
 } from 'lucide-react';
 import { UserProfile, MealAnalysis, TimeAdjustment } from '../types';
 
@@ -102,6 +105,7 @@ export const FoodScannerModal: React.FC<FoodScannerModalProps> = ({
   const [mealType, setMealType] = useState<'breakfast' | 'lunch' | 'dinner' | 'snack'>('lunch');
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
   const [analysisResult, setAnalysisResult] = useState<MealAnalysis | null>(null);
+  const [adviceFeedback, setAdviceFeedback] = useState<'helpful' | 'unhelpful' | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -118,6 +122,7 @@ export const FoodScannerModal: React.FC<FoodScannerModalProps> = ({
       setSelectedImage(url);
       setDishName(file.name.replace(/\.[^/.]+$/, "") || '用户上传餐食');
       setAnalysisResult(null);
+      setAdviceFeedback(null);
     };
     reader.readAsDataURL(file);
   };
@@ -126,6 +131,7 @@ export const FoodScannerModal: React.FC<FoodScannerModalProps> = ({
   const runAiAnalysis = (imageUrl: string, name: string) => {
     setIsAnalyzing(true);
     setAnalysisResult(null);
+    setAdviceFeedback(null);
 
     // Simulate intelligent AI parsing
     setTimeout(() => {
@@ -370,9 +376,50 @@ export const FoodScannerModal: React.FC<FoodScannerModalProps> = ({
             </div>
 
             {/* Personalized Guidance */}
-            <div className="text-xs text-slate-300 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
-              <strong className="text-cyan-400 block mb-1">个性化机体适配反馈：</strong>
-              {analysisResult.personalizedAdvice}
+            <div className="text-xs text-slate-300 bg-slate-900/60 p-3.5 rounded-xl border border-slate-800 space-y-2">
+              <div className="flex items-center justify-between flex-wrap gap-1">
+                <strong className="text-cyan-400">个性化机体适配建议：</strong>
+                <div className="flex items-center space-x-1.5 text-[10px]">
+                  <span className="text-slate-500">建议反馈：</span>
+                  <button
+                    type="button"
+                    onClick={() => setAdviceFeedback('helpful')}
+                    className={`inline-flex items-center space-x-1 px-2 py-0.5 rounded text-[10px] cursor-pointer transition-all ${
+                      adviceFeedback === 'helpful'
+                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-semibold'
+                        : 'bg-slate-800/80 text-slate-400 hover:text-emerald-300 border border-slate-700/60'
+                    }`}
+                    title="标记为有用：算法将强化契合您代谢特征的饮食建议"
+                  >
+                    <ThumbsUp className={`w-2.5 h-2.5 ${adviceFeedback === 'helpful' ? 'text-emerald-400 fill-emerald-400/20' : ''}`} />
+                    <span>有用</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAdviceFeedback('unhelpful')}
+                    className={`inline-flex items-center space-x-1 px-2 py-0.5 rounded text-[10px] cursor-pointer transition-all ${
+                      adviceFeedback === 'unhelpful'
+                        ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 font-semibold'
+                        : 'bg-slate-800/80 text-slate-400 hover:text-rose-300 border border-slate-700/60'
+                    }`}
+                    title="标记为无用：算法将优化后续膳食建议策略"
+                  >
+                    <ThumbsDown className={`w-2.5 h-2.5 ${adviceFeedback === 'unhelpful' ? 'text-rose-400 fill-rose-400/20' : ''}`} />
+                    <span>无用</span>
+                  </button>
+                </div>
+              </div>
+              <p className="leading-relaxed text-slate-300">{analysisResult.personalizedAdvice}</p>
+              {adviceFeedback && (
+                <div className="text-[10px] text-emerald-400 font-medium flex items-center space-x-1 pt-1.5 border-t border-slate-800/60 animate-fade-in">
+                  <Check className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
+                  <span>
+                    {adviceFeedback === 'helpful'
+                      ? '已采纳反馈：AI将持续强化同类抗炎与代谢改善饮食方案'
+                      : '已记录反馈：算法将优化并调整个性化膳食建议策略'}
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Action to log meal */}

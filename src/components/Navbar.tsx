@@ -283,15 +283,15 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
         <button
           onClick={() => setActiveTab('habits')}
-          className={`flex-1 min-w-[100px] py-1 text-center text-xs rounded-md ${
+          className={`flex-1 min-w-[64px] py-1 text-center text-xs rounded-md ${
             activeTab === 'habits' ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)]' : 'text-[var(--bd-sub)]'
           }`}
         >
-          习惯打卡(+20天)
+          习惯打卡
         </button>
         <button
           onClick={() => setActiveTab('sedentary')}
-          className={`flex-1 min-w-[80px] py-1 text-center text-xs rounded-md ${
+          className={`flex-1 min-w-[64px] py-1 text-center text-xs rounded-md ${
             activeTab === 'sedentary' ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)]' : 'text-[var(--bd-sub)]'
           }`}
         >
@@ -299,11 +299,19 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
         <button
           onClick={() => setActiveTab('grid')}
-          className={`flex-1 min-w-[80px] py-1 text-center text-xs rounded-md ${
+          className={`flex-1 min-w-[64px] py-1 text-center text-xs rounded-md ${
             activeTab === 'grid' ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)]' : 'text-[var(--bd-sub)]'
           }`}
         >
           生命格子
+        </button>
+        <button
+          onClick={() => setActiveTab('community')}
+          className={`flex-1 min-w-[64px] py-1 text-center text-xs rounded-md ${
+            activeTab === 'community' ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)]' : 'text-[var(--bd-sub)]'
+          }`}
+        >
+          社区
         </button>
       </div>
     </header>

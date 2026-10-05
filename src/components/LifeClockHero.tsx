@@ -329,7 +329,7 @@ export const LifeClockHero: React.FC<LifeClockHeroProps> = ({
 
         {/* Massive ticking Days display OR Protected Lock State */}
         {isCountdownVisible ? (
-          <div className="text-center font-mono-num font-extrabold text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent drop-shadow-sm select-all">
+          <div className="text-center font-mono-num font-extrabold text-4xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent drop-shadow-sm select-all">
             {countdown.remainingDays.toLocaleString()}
             <span className="text-2xl sm:text-4xl lg:text-5xl text-[var(--bd-accent-strong)] ml-3 font-semibold">{t.daysUnit}</span>
           </div>
@@ -448,7 +448,7 @@ export const LifeClockHero: React.FC<LifeClockHeroProps> = ({
               </div>
             </div>
           </div>
-          <div className="font-mono-num font-bold text-xl sm:text-2xl text-[var(--bd-accent)] tracking-tight whitespace-nowrap overflow-x-hidden">
+          <div className="font-mono-num font-bold text-base sm:text-2xl text-[var(--bd-accent)] tracking-tight whitespace-nowrap overflow-x-hidden">
             {isCountdownVisible ? (
               <>
                 {countdown.remainingSeconds.toLocaleString()}

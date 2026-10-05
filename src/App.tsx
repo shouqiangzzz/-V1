@@ -57,6 +57,7 @@ import { TimeLedgerModal } from './components/TimeLedgerModal';
 import { RulesCustomizerModal } from './components/RulesCustomizerModal';
 import { OnboardingModal } from './components/OnboardingModal';
 import { ThemeCustomizerModal } from './components/ThemeCustomizerModal';
+import { UI_STYLES } from './services/themeHelper';
 import { AdminModal } from './components/AdminModal';
 import { LongevityAuditModal } from './components/LongevityAuditModal';
 import { DEFAULT_THEME_CONFIG } from './services/storage';
@@ -129,6 +130,7 @@ export const App: React.FC = () => {
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
   const [isThemeOpen, setIsThemeOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [uiStyleId, setUiStyleId] = useState<string>(() => localStorage.getItem('bd_ui_style') || 'lavender');
   const [isAuditOpen, setIsAuditOpen] = useState(false);
   const [isDbConnected, setIsDbConnected] = useState(true);
   const [systemConfig, setSystemConfig] = useState<SystemConfig>(DEFAULT_SYSTEM_CONFIG);
@@ -384,19 +386,34 @@ export const App: React.FC = () => {
 
   // Active theme configuration
   const currentTheme = profile.themeConfig || DEFAULT_THEME_CONFIG;
+  // Active UI style (10 presets)
+  const uiStyle = UI_STYLES.find(s => s.id === uiStyleId) || UI_STYLES[5];
 
   return (
     <div 
-      className="min-h-screen text-slate-100 flex flex-col selection:bg-emerald-500 selection:text-black relative transition-colors duration-500"
+      className="min-h-screen text-[var(--bd-text)] flex flex-col selection:bg-[var(--bd-accent)] selection:text-white relative transition-colors duration-500"
       style={{
-        backgroundColor: currentTheme.customBgColor,
-      }}
+        backgroundColor: uiStyle.vars.bg,
+        '--bd-bg': uiStyle.vars.bg,
+        '--bd-bg-soft': uiStyle.vars.bgSoft,
+        '--bd-card': uiStyle.vars.card,
+        '--bd-border': uiStyle.vars.border,
+        '--bd-text': uiStyle.vars.text,
+        '--bd-sub': uiStyle.vars.sub,
+        '--bd-muted': uiStyle.vars.muted,
+        '--bd-accent': uiStyle.vars.accent,
+        '--bd-accent-strong': uiStyle.vars.accentStrong,
+        '--bd-accent-soft': uiStyle.vars.accentSoft,
+        '--bd-nav': uiStyle.vars.nav,
+        '--bd-nav-border': uiStyle.vars.navBorder,
+        '--bd-chip': uiStyle.vars.chip,
+      } as any}
     >
       {/* Ambient background atmosphere layer */}
       <div 
         className="fixed inset-0 pointer-events-none transition-opacity duration-700 -z-10"
         style={{
-          background: `radial-gradient(ellipse 90% 60% at 50% -10%, ${currentTheme.customSecondaryColor} 0%, transparent 80%), radial-gradient(ellipse 70% 50% at 90% 90%, ${currentTheme.customAccentColor}12 0%, transparent 60%)`,
+          background: `radial-gradient(ellipse 90% 60% at 50% -10%, ${uiStyle.vars.bgSoft} 0%, transparent 80%), radial-gradient(ellipse 70% 50% at 90% 90%, ${uiStyle.vars.accent}12 0%, transparent 60%)`,
           opacity: currentTheme.blurOpacity ?? 0.85
         }}
       />
@@ -577,6 +594,7 @@ export const App: React.FC = () => {
 
         {/* Section 7 is also appended at bottom of main clock view for direct continuous scrolling */}
         {activeTab === 'clock' && (
+          <div className="mt-10 sm:mt-14">
           <HealthCommunityHub
             expertVideos={expertVideos}
             posts={posts}
@@ -598,24 +616,25 @@ export const App: React.FC = () => {
             onOpenARShare={() => setIsARShareOpen(true)}
             onOpenTimeBank={() => setIsTimeBankOpen(true)}
           />
+          </div>
         )}
 
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950/80 py-6 text-center text-xs text-slate-500">
+      <footer className="border-t border-slate-200 bg-white/80 py-6 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center space-x-2">
-            <span className="font-extrabold text-slate-300 font-mono-num">{t.appName}</span>
+            <span className="font-extrabold text-slate-700 font-mono-num">{t.appName}</span>
             <span>·</span>
             <span>{t.footerSlogan}</span>
           </div>
           <div className="flex items-center space-x-4 text-[11px]">
-            <span className="text-slate-400">{t.footerBenchmark}</span>
+            <span className="text-slate-500">{t.footerBenchmark}</span>
             <span>·</span>
             <button 
               onClick={() => setIsRulesOpen(true)} 
-              className="text-emerald-400 hover:underline cursor-pointer"
+              className="text-emerald-600 hover:underline cursor-pointer"
             >
               {t.footerRulesConfig}
             </button>
@@ -679,6 +698,8 @@ export const App: React.FC = () => {
         onClose={() => setIsThemeOpen(false)}
         profile={profile}
         onSaveProfile={handleSaveProfile}
+        uiStyleId={uiStyleId}
+        onSelectStyle={(id) => { setUiStyleId(id); localStorage.setItem('bd_ui_style', id); }}
       />
 
       {/* Administrator System Authority Console */}

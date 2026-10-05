@@ -70,32 +70,32 @@ export const Navbar: React.FC<NavbarProps> = ({
   const badgeInfo = formatGainLossBadge(netGainSeconds);
 
   return (
-    <header className="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-md border-b border-slate-800/80">
+    <header className="sticky top-0 z-40 bg-[var(--bd-nav)] backdrop-blur-md border-b border-[var(--bd-border)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         
         {/* Brand Logo & Title: strictly single-line */}
         <div className="flex items-center space-x-3 cursor-pointer shrink-0" onClick={() => setActiveTab('clock')}>
           <div className="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 via-emerald-500 to-teal-400 p-0.5 flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0">
-            <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-              <Hourglass className="w-5 h-5 text-emerald-400 animate-spin" style={{ animationDuration: '12s' }} />
+            <div className="w-full h-full bg-[var(--bd-card)] rounded-[10px] flex items-center justify-center">
+              <Hourglass className="w-5 h-5 text-[var(--bd-accent)] animate-spin" style={{ animationDuration: '12s' }} />
             </div>
             <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full animate-ping opacity-75" />
           </div>
           <div className="shrink-0 whitespace-nowrap">
-            <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-emerald-400 bg-clip-text text-transparent font-mono-num whitespace-nowrap inline-block">
+            <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-[var(--bd-accent-strong)] via-[var(--bd-accent)] to-[var(--bd-accent)] bg-clip-text text-transparent font-mono-num whitespace-nowrap inline-block">
               {t.appName}
             </span>
           </div>
         </div>
 
         {/* Navigation Tabs: balanced characters on Line 1 & Line 2 */}
-        <nav className="hidden md:flex items-center space-x-1.5 bg-slate-900/80 p-1.5 rounded-xl border border-slate-800 shrink-0">
+        <nav className="hidden md:flex items-center space-x-1.5 bg-[var(--bd-chip)] p-1.5 rounded-xl border border-[var(--bd-border)] shrink-0">
           <button
             onClick={() => setActiveTab('clock')}
             className={`px-3 py-1 rounded-lg text-xs font-medium transition-all flex flex-col items-center justify-center leading-snug text-center ${
               activeTab === 'clock'
-                ? 'bg-emerald-500/20 text-emerald-300 shadow-sm border border-emerald-500/30 font-semibold'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)] shadow-sm border border-emerald-500/30 font-semibold'
+                : 'text-[var(--bd-sub)] hover:text-[var(--bd-text)] hover:bg-[var(--bd-chip)]/60'
             }`}
           >
             {language === 'zh' ? (
@@ -115,8 +115,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveTab('habits')}
             className={`px-3 py-1 rounded-lg text-xs font-medium transition-all flex flex-col items-center justify-center leading-snug text-center ${
               activeTab === 'habits'
-                ? 'bg-emerald-500/20 text-emerald-300 shadow-sm border border-emerald-500/30 font-semibold'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)] shadow-sm border border-emerald-500/30 font-semibold'
+                : 'text-[var(--bd-sub)] hover:text-[var(--bd-text)] hover:bg-[var(--bd-chip)]/60'
             }`}
           >
             {language === 'zh' ? (
@@ -136,8 +136,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveTab('sedentary')}
             className={`px-3 py-1 rounded-lg text-xs font-medium transition-all flex flex-col items-center justify-center leading-snug text-center ${
               activeTab === 'sedentary'
-                ? 'bg-emerald-500/20 text-emerald-300 shadow-sm border border-emerald-500/30 font-semibold'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)] shadow-sm border border-emerald-500/30 font-semibold'
+                : 'text-[var(--bd-sub)] hover:text-[var(--bd-text)] hover:bg-[var(--bd-chip)]/60'
             }`}
           >
             {language === 'zh' ? (
@@ -157,8 +157,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveTab('grid')}
             className={`px-3 py-1 rounded-lg text-xs font-medium transition-all flex flex-col items-center justify-center leading-snug text-center ${
               activeTab === 'grid'
-                ? 'bg-emerald-500/20 text-emerald-300 shadow-sm border border-emerald-500/30 font-semibold'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)] shadow-sm border border-emerald-500/30 font-semibold'
+                : 'text-[var(--bd-sub)] hover:text-[var(--bd-text)] hover:bg-[var(--bd-chip)]/60'
             }`}
           >
             {language === 'zh' ? (
@@ -178,8 +178,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveTab('community')}
             className={`px-3 py-1 rounded-lg text-xs font-medium transition-all flex flex-col items-center justify-center leading-snug text-center ${
               activeTab === 'community'
-                ? 'bg-emerald-500/20 text-emerald-300 shadow-sm border border-emerald-500/30 font-semibold'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)] shadow-sm border border-emerald-500/30 font-semibold'
+                : 'text-[var(--bd-sub)] hover:text-[var(--bd-text)] hover:bg-[var(--bd-chip)]/60'
             }`}
           >
             {language === 'zh' ? (
@@ -203,7 +203,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenFoodScanner}
             title={t.foodScannerBtn}
-            className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-900/60 transition-all text-xs font-medium cursor-pointer"
+            className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-700 hover:bg-cyan-100 transition-all text-xs font-medium cursor-pointer"
           >
             <Camera className="w-3.5 h-3.5 text-cyan-400" />
             <span className="hidden sm:inline">{t.foodScannerBtn}</span>
@@ -213,9 +213,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenOnboarding}
             title={language === 'zh' ? "用户注册：支持大陆与海外多元通道（内容设置完全可选）" : "User Registration"}
-            className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600/30 to-teal-600/30 hover:from-emerald-600/50 hover:to-teal-600/50 border border-emerald-500/50 text-emerald-300 transition-all text-xs font-semibold cursor-pointer shadow-xs"
+            className="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600/15 to-teal-600/15 hover:from-emerald-600/25 hover:to-teal-600/25 border border-emerald-500/40 text-[var(--bd-accent-strong)] transition-all text-xs font-semibold cursor-pointer shadow-xs"
           >
-            <UserPlus className="w-3.5 h-3.5 text-emerald-400" />
+            <UserPlus className="w-3.5 h-3.5 text-[var(--bd-accent)]" />
             <span className="font-medium">{t.onboardingBtn}</span>
           </button>
 
@@ -223,7 +223,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenProfile}
             title={t.healthProfileBtn}
-            className="flex items-center space-x-1.5 px-2 sm:px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 text-slate-300 hover:bg-slate-800 transition-all text-xs font-medium cursor-pointer"
+            className="flex items-center space-x-1.5 px-2 sm:px-2.5 py-1.5 rounded-lg bg-[var(--bd-card)] border border-[var(--bd-border)] text-[var(--bd-text)] hover:bg-[var(--bd-chip)] transition-all text-xs font-medium cursor-pointer"
           >
             <UserCheck className="w-3.5 h-3.5 text-teal-400" />
             <span className="hidden sm:inline">{t.healthProfileBtn}</span>
@@ -233,14 +233,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenRules}
             title={t.rulesBtn}
-            className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-all cursor-pointer"
+            className="p-1.5 rounded-lg bg-[var(--bd-card)] border border-[var(--bd-border)] text-[var(--bd-sub)] hover:text-[var(--bd-text)] hover:bg-[var(--bd-chip)] transition-all cursor-pointer"
           >
-            <Settings className="w-4 h-4 text-slate-300 hover:rotate-45 transition-transform" />
+            <Settings className="w-4 h-4 text-[var(--bd-sub)] hover:rotate-45 transition-transform" />
           </button>
 
           {/* Top-Right Language Switcher */}
           <div 
-            className="flex items-center bg-slate-900 border border-slate-700/90 rounded-xl p-0.5 text-xs font-semibold shrink-0 shadow-sm ml-1"
+            className="flex items-center bg-[var(--bd-card)] border border-[var(--bd-border)] rounded-xl p-0.5 text-xs font-semibold shrink-0 shadow-sm ml-1"
             title={language === 'zh' ? '切换语言 (当前：中文)' : 'Switch Language (Current: English)'}
           >
             <button
@@ -248,8 +248,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => setLanguage('zh')}
               className={`px-2 py-1 rounded-lg text-[11px] transition-all cursor-pointer ${
                 language === 'zh'
-                  ? 'bg-emerald-500 text-slate-950 font-bold shadow-xs'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-emerald-500 text-white font-bold shadow-xs'
+                  : 'text-[var(--bd-sub)] hover:text-[var(--bd-text)]'
               }`}
             >
               中
@@ -259,8 +259,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => setLanguage('en')}
               className={`px-2 py-1 rounded-lg text-[11px] transition-all cursor-pointer ${
                 language === 'en'
-                  ? 'bg-emerald-500 text-slate-950 font-bold shadow-xs'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-emerald-500 text-white font-bold shadow-xs'
+                  : 'text-[var(--bd-sub)] hover:text-[var(--bd-text)]'
               }`}
             >
               EN
@@ -272,11 +272,11 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Mobile Sub-Navigation Bar */}
-      <div className="flex md:hidden border-t border-slate-800/80 px-2 py-1.5 overflow-x-auto space-x-1 bg-slate-950">
+      <div className="flex md:hidden border-t border-[var(--bd-border)] px-2 py-1.5 overflow-x-auto space-x-1 bg-[var(--bd-card)]">
         <button
           onClick={() => setActiveTab('clock')}
           className={`flex-1 min-w-[70px] py-1 text-center text-xs rounded-md ${
-            activeTab === 'clock' ? 'bg-emerald-500/20 text-emerald-300' : 'text-slate-400'
+            activeTab === 'clock' ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)]' : 'text-[var(--bd-sub)]'
           }`}
         >
           主时钟
@@ -284,7 +284,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <button
           onClick={() => setActiveTab('habits')}
           className={`flex-1 min-w-[100px] py-1 text-center text-xs rounded-md ${
-            activeTab === 'habits' ? 'bg-emerald-500/20 text-emerald-300' : 'text-slate-400'
+            activeTab === 'habits' ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)]' : 'text-[var(--bd-sub)]'
           }`}
         >
           习惯打卡(+20天)
@@ -292,7 +292,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <button
           onClick={() => setActiveTab('sedentary')}
           className={`flex-1 min-w-[80px] py-1 text-center text-xs rounded-md ${
-            activeTab === 'sedentary' ? 'bg-emerald-500/20 text-emerald-300' : 'text-slate-400'
+            activeTab === 'sedentary' ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)]' : 'text-[var(--bd-sub)]'
           }`}
         >
           久坐监测
@@ -300,7 +300,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <button
           onClick={() => setActiveTab('grid')}
           className={`flex-1 min-w-[80px] py-1 text-center text-xs rounded-md ${
-            activeTab === 'grid' ? 'bg-emerald-500/20 text-emerald-300' : 'text-slate-400'
+            activeTab === 'grid' ? 'bg-[var(--bd-accent-soft)] text-[var(--bd-accent-strong)]' : 'text-[var(--bd-sub)]'
           }`}
         >
           生命格子

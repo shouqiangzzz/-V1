@@ -17,7 +17,7 @@ import {
   Camera
 } from 'lucide-react';
 import { UserProfile, ThemeConfig, BackgroundStyle, BackgroundPattern } from '../types';
-import { THEME_PRESETS, CARTOON_AVATARS, CartoonAvatar } from '../services/themeHelper';
+import { THEME_PRESETS, CARTOON_AVATARS, CartoonAvatar, UI_STYLES } from '../services/themeHelper';
 import { DEFAULT_THEME_CONFIG } from '../services/storage';
 
 interface ThemeCustomizerModalProps {
@@ -25,6 +25,8 @@ interface ThemeCustomizerModalProps {
   onClose: () => void;
   profile: UserProfile;
   onSaveProfile: (updatedProfile: UserProfile) => void;
+  uiStyleId: string;
+  onSelectStyle: (id: string) => void;
 }
 
 export const ThemeCustomizerModal: React.FC<ThemeCustomizerModalProps> = ({
@@ -32,6 +34,8 @@ export const ThemeCustomizerModal: React.FC<ThemeCustomizerModalProps> = ({
   onClose,
   profile,
   onSaveProfile,
+  uiStyleId,
+  onSelectStyle,
 }) => {
   const [activeTab, setActiveTab] = useState<'avatar' | 'background'>('avatar');
 
@@ -413,6 +417,56 @@ export const ThemeCustomizerModal: React.FC<ThemeCustomizerModalProps> = ({
         {activeTab === 'background' && (
           <div className="space-y-6 animate-fade-in max-h-[460px] overflow-y-auto pr-1">
             
+            {/* 0. 10-Click Whole-UI Style Presets (instant) */}
+            <div>
+              <span className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1.5 mb-2.5">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <span>精选 10 款整体界面风格 · 深浅皆有 · 点击即时预览</span>
+              </span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
+                {UI_STYLES.map((st) => {
+                  const isSelected = uiStyleId === st.id;
+                  return (
+                    <button
+                      key={st.id}
+                      type="button"
+                      onClick={() => onSelectStyle(st.id)}
+                      className={`p-2.5 rounded-2xl border text-left cursor-pointer transition-all relative overflow-hidden ${
+                        isSelected
+                          ? 'border-emerald-500 shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-500'
+                          : 'border-slate-800 hover:border-slate-700 bg-slate-950/60'
+                      }`}
+                    >
+                      <div
+                        className="h-11 rounded-xl mb-2 flex items-end justify-center pb-1 shadow-inner"
+                        style={{
+                          background: st.preview,
+                          border: `1px solid ${st.vars.accent}55`,
+                        }}
+                      >
+                        <div
+                          className="w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold"
+                          style={{ backgroundColor: st.vars.accent, color: '#fff' }}
+                        >
+                          {st.id.slice(0, 1).toUpperCase()}
+                        </div>
+                      </div>
+                      <span className="text-xs font-bold text-white block truncate">{st.name}</span>
+                      <span className="text-[10px] text-slate-400 block truncate mt-0.5">{st.desc}</span>
+                      {isSelected && (
+                        <div
+                          className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full text-slate-950 flex items-center justify-center shadow-xs"
+                          style={{ backgroundColor: theme.customAccentColor }}
+                        >
+                          <Check className="w-2.5 h-2.5 stroke-[3]" />
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* 6 Curated Preset Theme Cards */}
             <div>
               <span className="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-2.5">

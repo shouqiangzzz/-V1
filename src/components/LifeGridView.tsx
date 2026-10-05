@@ -22,18 +22,18 @@ export const LifeGridView: React.FC<LifeGridViewProps> = ({
   const bonusWeeks = Math.max(0, Math.floor(countdown.netGainSeconds / (7 * 86400)));
 
   return (
-    <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+    <div className="bg-[var(--bd-card)] border border-[var(--bd-border)] rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[var(--bd-border)]">
         <div>
-          <h3 className="text-lg font-bold text-white flex items-center space-x-2">
+          <h3 className="text-lg font-bold text-[var(--bd-text)] flex items-center space-x-2">
             <span>{language === 'zh' ? '人生周格图 (Weeks of Life)' : 'Life Grid Map (Weeks of Life)'}</span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
+            <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-700 border border-cyan-500/30">
               Memento Mori
             </span>
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-[var(--bd-sub)] mt-0.5">
             {language === 'zh' 
               ? `假定预期寿命为 ${profile.targetAge} 岁，每一方格代表生命中独立且无法重来的 1 周（7天）`
               : `Assuming designed lifespan target of ${profile.targetAge} years, each block represents 1 irreplaceable week (7 days).`}
@@ -43,20 +43,20 @@ export const LifeGridView: React.FC<LifeGridViewProps> = ({
         {/* Legend */}
         <div className="flex flex-wrap items-center gap-3 text-xs">
           <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-xs bg-slate-600 inline-block" />
-            <span className="text-slate-400">
+            <span className="w-2.5 h-2.5 rounded-xs bg-[var(--bd-chip)] inline-block" />
+            <span className="text-[var(--bd-sub)]">
               {language === 'zh' ? `已度过 (${livedWeeks}周)` : `Life Lived (${livedWeeks} wks)`}
             </span>
           </div>
           <div className="flex items-center space-x-1.5">
             <span className="w-2.5 h-2.5 rounded-xs bg-emerald-400 inline-block shadow-xs shadow-emerald-400" />
-            <span className="text-emerald-300 font-semibold">
+            <span className="text-[var(--bd-accent-strong)] font-semibold">
               {language === 'zh' ? `自律赚得 (+${bonusWeeks}周)` : `Discipline Earned (+${bonusWeeks} wks)`}
             </span>
           </div>
           <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-xs bg-slate-800 border border-slate-700 inline-block" />
-            <span className="text-slate-500">
+            <span className="w-2.5 h-2.5 rounded-xs bg-slate-200 border border-slate-300 inline-block" />
+            <span className="text-[var(--bd-sub)]">
               {language === 'zh' ? `剩余待生活 (${Math.max(0, countdown.remainingWeeks)}周)` : `Remaining Journey (${Math.max(0, countdown.remainingWeeks)} wks)`}
             </span>
           </div>
@@ -64,17 +64,17 @@ export const LifeGridView: React.FC<LifeGridViewProps> = ({
       </div>
 
       {/* Hover Info tooltip */}
-      <div className="h-6 flex items-center text-xs text-slate-300 font-mono">
+      <div className="h-6 flex items-center text-xs text-[var(--bd-text)] font-mono">
         {hoveredWeek ? (
           <span>
             {language === 'zh' ? (
-              <>👉 选中点：大约 <strong className="text-emerald-400">{hoveredWeek.age} 岁</strong>（第 {hoveredWeek.week} 周）</>
+              <>👉 选中点：大约 <strong className="text-[var(--bd-accent-strong)]">{hoveredWeek.age} 岁</strong>（第 {hoveredWeek.week} 周）</>
             ) : (
-              <>👉 Selected: Approx. Age <strong className="text-emerald-400">{hoveredWeek.age}</strong> (Week {hoveredWeek.week})</>
+              <>👉 Selected: Approx. Age <strong className="text-[var(--bd-accent-strong)]">{hoveredWeek.age}</strong> (Week {hoveredWeek.week})</>
             )}
           </span>
         ) : (
-          <span className="text-slate-500 text-[11px]">
+          <span className="text-[var(--bd-sub)] text-[11px]">
             {language === 'zh' ? '鼠标悬停在方格上可查看对应年龄阶段' : 'Hover over any square to inspect age and life milestone'}
           </span>
         )}
@@ -88,7 +88,7 @@ export const LifeGridView: React.FC<LifeGridViewProps> = ({
             return (
               <div key={yearIdx} className="flex items-center space-x-1">
                 {/* Year Label */}
-                <span className="w-7 text-[9px] font-mono text-slate-600 text-right pr-1">
+                <span className="w-7 text-[9px] font-mono text-[var(--bd-sub)] text-right pr-1">
                   {age % 5 === 0 ? (language === 'zh' ? `${age}岁` : `Age ${age}`) : ''}
                 </span>
 
@@ -108,8 +108,8 @@ export const LifeGridView: React.FC<LifeGridViewProps> = ({
                           isBonus
                             ? 'bg-emerald-400 hover:scale-125 hover:z-10 shadow-xs'
                             : isLived
-                            ? 'bg-slate-700/80 hover:bg-slate-500'
-                            : 'bg-slate-800/40 hover:bg-slate-700 border border-slate-800'
+                            ? 'bg-[var(--bd-chip)] hover:bg-slate-400'
+                            : 'bg-slate-200/60 hover:bg-[var(--bd-chip)] border border-[var(--bd-border)]'
                         }`}
                       />
                     );
@@ -122,7 +122,7 @@ export const LifeGridView: React.FC<LifeGridViewProps> = ({
       </div>
 
       {/* Philosophical bottom note */}
-      <div className="pt-4 border-t border-slate-800 text-center text-xs text-slate-500">
+      <div className="pt-4 border-t border-[var(--bd-border)] text-center text-xs text-[var(--bd-sub)]">
         “我们并非拥有很少的时间，而是挥霍了太多。” —— 塞涅卡 · 保持规律自律，为人生点亮更多绿格
       </div>
 

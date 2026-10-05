@@ -221,32 +221,32 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
     <section className="space-y-6">
       
       {/* ================= XiaoHongShu Style Header Bar ================= */}
-      <div className="rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 p-5 sm:p-6 shadow-xl relative overflow-hidden">
+      <div className="rounded-3xl bg-[var(--bd-card)] border border-[var(--bd-border)] p-6 sm:p-8 shadow-xl relative overflow-hidden">
         
         {/* Glow ambient background */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           
           {/* Title & XiaoHongShu AI Tagline */}
           <div>
             <div className="flex items-center space-x-2.5">
               <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-rose-500 via-amber-500 to-emerald-400 p-0.5 flex items-center justify-center shadow-lg shadow-rose-500/20">
-                <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+                <div className="w-full h-full bg-[var(--bd-accent-soft)] rounded-[14px] flex items-center justify-center">
                   <Sparkles className="w-5 h-5 text-rose-400 animate-pulse" />
                 </div>
               </div>
               <div>
                 <div className="flex items-center space-x-2">
-                  <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                  <h2 className="text-xl sm:text-2xl font-black text-[var(--bd-text)] tracking-tight">
                     {language === 'zh' ? '健康社区 · AI长寿视界' : 'Health Community · AI Discovery'}
                   </h2>
                   <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-bold border border-rose-500/40">
                     精选推荐模式
                   </span>
                 </div>
-                <p className="text-xs text-slate-300 mt-1 flex items-center space-x-1.5">
+                <p className="text-xs text-[var(--bd-sub)] mt-1 flex items-center space-x-1.5">
                   <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                   <span>
                     {language === 'zh' 
@@ -259,20 +259,20 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
           </div>
 
           {/* Quick Actions (Post upload, refresh feed, compliance) */}
-          <div className="flex flex-wrap items-center gap-2 self-start md:self-auto">
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 self-start md:self-auto">
             
             {/* Search Input */}
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+              <Search className="w-3.5 h-3.5 text-[var(--bd-muted)] absolute left-3 top-2.5" />
               <input
                 type="text"
                 placeholder={language === 'zh' ? "搜索抗衰视频、笔记..." : "Search videos, notes..."}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-slate-950/80 border border-slate-700/80 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 w-36 sm:w-48 transition-all"
+                className="bg-[var(--bd-chip)] border border-[var(--bd-border)] rounded-xl pl-8 pr-3 py-1.5 text-xs text-[var(--bd-text)] placeholder-[var(--bd-muted)] focus:outline-none focus:border-rose-500 w-36 sm:w-48 transition-all"
               />
               {searchQuery && (
-                <button onClick={() => setSearchQuery('')} className="absolute right-2.5 top-2.5 text-slate-400 hover:text-white">
+                <button onClick={() => setSearchQuery('')} className="absolute right-2.5 top-2.5 text-[var(--bd-muted)] hover:text-[var(--bd-text)]">
                   <X className="w-3 h-3" />
                 </button>
               )}
@@ -281,7 +281,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
             {/* Refresh Feed Button */}
             <button
               onClick={() => setRefreshSeed(s => s + 1)}
-              className="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center space-x-1.5 cursor-pointer transition-all shadow-xs"
+              className="px-3 py-1.5 rounded-xl bg-[var(--bd-chip)] hover:bg-[var(--bd-border)] border border-[var(--bd-border)] text-[var(--bd-sub)] text-xs font-semibold flex items-center space-x-1.5 cursor-pointer transition-all shadow-xs"
               title={language === 'zh' ? "刷新AI算法推测推荐池" : "Refresh recommendations"}
             >
               <RotateCcw className="w-3.5 h-3.5 text-cyan-400" />
@@ -339,7 +339,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
               className={`px-3 py-1.5 rounded-xl border text-xs font-semibold flex items-center space-x-1 cursor-pointer transition-all ${
                 merchantCert.isVerified
                   ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300'
-                  : 'bg-slate-800/70 border-slate-700 text-slate-300 hover:bg-slate-800'
+                  : 'bg-[var(--bd-chip)] border-[var(--bd-border)] text-[var(--bd-sub)] hover:bg-[var(--bd-border)]'
               }`}
             >
               <ShoppingBag className="w-3.5 h-3.5 text-amber-400" />
@@ -350,7 +350,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
         </div>
 
         {/* XiaoHongShu Style Tabs Bar */}
-        <div className="mt-5 pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+        <div className="mt-6 pt-5 border-t border-[var(--bd-border)] flex flex-wrap items-center justify-between gap-4">
           
           <div className="flex items-center space-x-1.5 sm:space-x-2 overflow-x-auto pb-1">
             <button
@@ -358,7 +358,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 shrink-0 cursor-pointer ${
                 activeMainTab === 'recommend'
                   ? 'bg-rose-500 text-white shadow-md shadow-rose-500/30'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  : 'text-[var(--bd-muted)] hover:text-[var(--bd-text)] hover:bg-[var(--bd-chip)]'
               }`}
             >
               <Sparkles className="w-3.5 h-3.5" />
@@ -370,7 +370,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 shrink-0 cursor-pointer ${
                 activeMainTab === 'videos'
                   ? 'bg-rose-500 text-white shadow-md shadow-rose-500/30'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  : 'text-[var(--bd-muted)] hover:text-[var(--bd-text)] hover:bg-[var(--bd-chip)]'
               }`}
             >
               <Video className="w-3.5 h-3.5" />
@@ -382,7 +382,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 shrink-0 cursor-pointer ${
                 activeMainTab === 'images'
                   ? 'bg-rose-500 text-white shadow-md shadow-rose-500/30'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  : 'text-[var(--bd-muted)] hover:text-[var(--bd-text)] hover:bg-[var(--bd-chip)]'
               }`}
             >
               <ImageIcon className="w-3.5 h-3.5" />
@@ -394,7 +394,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 shrink-0 cursor-pointer ${
                 activeMainTab === 'following'
                   ? 'bg-rose-500 text-white shadow-md shadow-rose-500/30'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  : 'text-[var(--bd-muted)] hover:text-[var(--bd-text)] hover:bg-[var(--bd-chip)]'
               }`}
             >
               <Users className="w-3.5 h-3.5" />
@@ -417,7 +417,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
           {/* Compliance & Guidelines quick link */}
           <button
             onClick={() => setShowCommunityGuide(true)}
-            className="text-[11px] text-slate-400 hover:text-slate-200 flex items-center space-x-1 cursor-pointer shrink-0"
+            className="text-[11px] text-[var(--bd-muted)] hover:text-[var(--bd-sub)] flex items-center space-x-1 cursor-pointer shrink-0"
           >
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
             <span>{language === 'zh' ? '社区规范准则' : 'Community Rules'}</span>
@@ -425,7 +425,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
         </div>
 
         {/* XiaoHongShu Category Filter Pills */}
-        <div className="mt-3 flex items-center space-x-2 overflow-x-auto pb-1">
+        <div className="mt-4 flex items-center space-x-2.5 overflow-x-auto pb-1">
           {categoryFilters.map(cat => (
             <button
               key={cat}
@@ -433,7 +433,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
               className={`px-3 py-1 rounded-full text-xs font-medium transition-all shrink-0 cursor-pointer ${
                 selectedCategory === cat
                   ? 'bg-slate-100 text-slate-900 font-bold shadow-xs'
-                  : 'bg-slate-950/60 text-slate-400 hover:text-white border border-slate-800'
+                  : 'bg-[var(--bd-chip)] text-[var(--bd-muted)] hover:text-[var(--bd-text)] border border-[var(--bd-border)]'
               }`}
             >
               {cat}
@@ -448,17 +448,17 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
         <div className="space-y-6">
           
           {/* AI Preference Radar Card */}
-          <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 space-y-4">
+          <div className="p-6 rounded-3xl bg-[var(--bd-card)] border border-[var(--bd-border)] space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="p-2.5 rounded-2xl bg-amber-500/20 text-amber-400">
                   <Sliders className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white">
+                  <h3 className="text-base font-bold text-[var(--bd-text)]">
                     {language === 'zh' ? 'AI 偏好推测模型透视' : 'AI Preference Inference Profile'}
                   </h3>
-                  <p className="text-xs text-slate-400 mt-0.5">
+                  <p className="text-xs text-[var(--bd-muted)] mt-0.5">
                     {language === 'zh' 
                       ? '系统自动根据您的历史观看频次、完播时长、点赞与关注计算权重，即时推测推送长寿内容' 
                       : 'Real-time embedding weights inferred from your watch frequency, completion rates, and likes.'}
@@ -473,12 +473,12 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
             {/* Interest categories progress meters */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
               {Object.entries(interestProfile.categoryWeights).map(([cat, weight]) => (
-                <div key={cat} className="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800/80 space-y-1.5">
+                <div key={cat} className="p-3.5 rounded-2xl bg-[var(--bd-chip)] border border-[var(--bd-border)] space-y-1.5">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-white">{cat}</span>
+                    <span className="font-bold text-[var(--bd-text)]">{cat}</span>
                     <span className="font-mono-num font-bold text-rose-400">{Math.round(weight * 100)}% 偏好度</span>
                   </div>
-                  <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-[var(--bd-border)] rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-gradient-to-r from-amber-500 to-rose-500 rounded-full transition-all duration-700"
                       style={{ width: `${Math.round(weight * 100)}%` }}
@@ -490,10 +490,10 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
 
             {/* Top Tag Pills */}
             <div className="pt-2">
-              <span className="text-xs text-slate-400 block mb-2 font-medium">高频匹配关键词：</span>
+              <span className="text-xs text-[var(--bd-muted)] block mb-2 font-medium">高频匹配关键词：</span>
               <div className="flex flex-wrap gap-2">
                 {interestProfile.topTags.map(tag => (
-                  <span key={tag} className="px-2.5 py-1 rounded-lg bg-slate-800 text-cyan-300 text-xs border border-slate-700 flex items-center space-x-1">
+                  <span key={tag} className="px-2.5 py-1 rounded-lg bg-[var(--bd-chip)] text-[var(--bd-accent)] text-xs border border-[var(--bd-border)] flex items-center space-x-1">
                     <Tag className="w-3 h-3 text-cyan-400" />
                     <span>#{tag}</span>
                   </span>
@@ -504,21 +504,21 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
 
           {/* Watch History List */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-[var(--bd-muted)] uppercase tracking-wider">
               {language === 'zh' ? '最近观看的视频与笔记足迹' : 'Recent Watch History'}
             </h4>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {watchHistory.map((rec) => (
-                <div key={rec.id} className="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between space-x-3">
+                <div key={rec.id} className="p-3.5 rounded-2xl bg-[var(--bd-card)] border border-[var(--bd-border)] flex items-center justify-between space-x-3">
                   <div className="flex items-center space-x-3 truncate">
-                    <div className="w-9 h-9 rounded-xl bg-slate-800 flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-xl bg-[var(--bd-chip)] flex items-center justify-center shrink-0">
                       {rec.contentType === 'video' ? <Video className="w-4 h-4 text-emerald-400" /> : <ImageIcon className="w-4 h-4 text-cyan-400" />}
                     </div>
                     <div className="truncate">
-                      <div className="text-xs font-bold text-white truncate">{rec.title}</div>
-                      <div className="text-[10px] text-slate-400 flex items-center space-x-2 mt-0.5">
-                        <span className="px-1.5 py-0.2 rounded bg-slate-800 text-slate-300">{rec.category}</span>
+                      <div className="text-xs font-bold text-[var(--bd-text)] truncate">{rec.title}</div>
+                      <div className="text-[10px] text-[var(--bd-muted)] flex items-center space-x-2 mt-0.5">
+                        <span className="px-1.5 py-0.2 rounded bg-[var(--bd-chip)] text-[var(--bd-sub)]">{rec.category}</span>
                         <span>观看时长 {Math.floor(rec.durationWatchedSeconds / 60)} 分钟</span>
                       </div>
                     </div>
@@ -537,12 +537,12 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
         <div className="space-y-4">
           
           {rankedFeed.length === 0 ? (
-            <div className="p-12 text-center rounded-3xl bg-slate-900/60 border border-slate-800">
+            <div className="p-12 text-center rounded-3xl bg-[var(--bd-card)] border border-[var(--bd-border)]">
               <Sparkles className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-              <h3 className="text-base font-bold text-white mb-1">
+              <h3 className="text-base font-bold text-[var(--bd-text)] mb-1">
                 {language === 'zh' ? '暂未找到相关推荐' : 'No matching recommendations'}
               </h3>
-              <p className="text-xs text-slate-400 max-w-sm mx-auto mb-4">
+              <p className="text-xs text-[var(--bd-muted)] max-w-sm mx-auto mb-4">
                 {language === 'zh' ? '尝试切换其他分类或点击换一批，发现更多高价值长寿视频' : 'Try switching categories or refreshing recommendations'}
               </p>
               <button
@@ -558,11 +558,11 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
                 <div 
                   key={item.id}
                   onClick={() => handleOpenDetail(item)}
-                  className="group rounded-2xl bg-slate-900 border border-slate-800 hover:border-rose-500/50 hover:shadow-xl hover:shadow-rose-500/10 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between"
+                  className="group rounded-2xl bg-[var(--bd-card)] border border-[var(--bd-border)] hover:border-rose-500/50 hover:shadow-xl hover:shadow-rose-500/10 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between"
                 >
                   
                   {/* Media Cover Image / Thumbnail */}
-                  <div className="relative aspect-[4/5] bg-slate-950 overflow-hidden">
+                  <div className="relative aspect-[4/5] bg-[var(--bd-chip)] overflow-hidden">
                     <img 
                       src={item.coverUrl} 
                       alt={item.title} 
@@ -615,14 +615,14 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
                     
                     <div>
                       {/* Title (XiaoHongShu bold 2-line title) */}
-                      <h3 className="text-xs sm:text-sm font-bold text-white line-clamp-2 group-hover:text-rose-300 transition-colors leading-snug">
+                      <h3 className="text-xs sm:text-sm font-bold text-[var(--bd-text)] line-clamp-2 group-hover:text-rose-300 transition-colors leading-snug">
                         {item.title}
                       </h3>
 
                       {/* Tags */}
                       <div className="flex flex-wrap gap-1 mt-1.5">
                         {item.tags.slice(0, 2).map(tag => (
-                          <span key={tag} className="text-[9px] text-slate-400 bg-slate-800/80 px-1.5 py-0.2 rounded">
+                          <span key={tag} className="text-[9px] text-[var(--bd-sub)] bg-[var(--bd-chip)] px-1.5 py-0.2 rounded">
                             #{tag}
                           </span>
                         ))}
@@ -630,7 +630,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
 
                       {/* Attached Product & AI 7-Day Wearable Objective Endorsement in Feed Stream */}
                       {item.rawPost?.product && (
-                        <div className="mt-2 p-2 rounded-xl bg-gradient-to-r from-emerald-950/70 via-slate-950 to-slate-950 border border-emerald-500/30 space-y-1">
+                        <div className="mt-2 p-2 rounded-xl bg-[var(--bd-accent-soft)] border border-[var(--bd-accent)] space-y-1">
                           <div className="flex items-center justify-between text-[10px]">
                             <span className="font-bold text-amber-300 truncate max-w-[130px]">
                               🛍️ {item.rawPost.product.title}
@@ -654,14 +654,14 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
                     </div>
 
                     {/* Author & Like Count Footer */}
-                    <div className="pt-2 border-t border-slate-800/70 flex items-center justify-between">
+                    <div className="pt-2 border-t border-[var(--bd-border)] flex items-center justify-between">
                       <div className="flex items-center space-x-1.5 truncate">
                         <img 
                           src={item.authorAvatar} 
                           alt={item.authorName} 
-                          className="w-5 h-5 rounded-full object-cover shrink-0 border border-slate-700" 
+                          className="w-5 h-5 rounded-full object-cover shrink-0 border border-[var(--bd-border)]" 
                         />
-                        <span className="text-[11px] text-slate-300 truncate font-medium">
+                        <span className="text-[11px] text-[var(--bd-sub)] truncate font-medium">
                           {item.authorName}
                         </span>
                       </div>
@@ -670,7 +670,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
                       <button
                         type="button"
                         onClick={(e) => handleToggleLike(item, e)}
-                        className="flex items-center space-x-1 text-slate-400 hover:text-rose-400 transition-colors shrink-0 cursor-pointer group/like"
+                        className="flex items-center space-x-1 text-[var(--bd-muted)] hover:text-rose-400 transition-colors shrink-0 cursor-pointer group/like"
                       >
                         <Heart className="w-3.5 h-3.5 group-hover/like:scale-125 transition-transform" />
                         <span className="text-[11px] font-mono-num font-medium">
@@ -693,7 +693,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
       {activeDetailItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-950/85 backdrop-blur-md">
           <div 
-            className="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl flex flex-col lg:flex-row max-h-[92vh] overflow-hidden"
+            className="w-full max-w-4xl bg-[var(--bd-card)] border border-[var(--bd-border)] rounded-3xl shadow-2xl flex flex-col lg:flex-row max-h-[92vh] overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             
@@ -728,18 +728,18 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
             </div>
 
             {/* Right Column: XiaoHongShu Note Content, AI Recommendation explanation & Comments */}
-            <div className="lg:w-5/12 flex flex-col justify-between max-h-[520px] overflow-y-auto bg-slate-900 border-l border-slate-800/80">
+            <div className="lg:w-5/12 flex flex-col justify-between max-h-[520px] overflow-y-auto bg-[var(--bd-card)] border-l border-[var(--bd-border)]">
               
               {/* Header: Author Info + Follow + Close Button */}
-              <div className="p-4 sm:p-5 border-b border-slate-800/80 flex items-center justify-between sticky top-0 bg-slate-900/95 backdrop-blur-sm z-10">
+              <div className="p-4 sm:p-5 border-b border-[var(--bd-border)] flex items-center justify-between sticky top-0 bg-[var(--bd-card)] backdrop-blur-sm z-10">
                 <div className="flex items-center space-x-2.5">
                   <img
                     src={activeDetailItem.authorAvatar}
                     alt={activeDetailItem.authorName}
-                    className="w-10 h-10 rounded-full object-cover border border-slate-700"
+                    className="w-10 h-10 rounded-full object-cover border border-[var(--bd-border)]"
                   />
                   <div>
-                    <h4 className="text-xs font-bold text-white flex items-center space-x-1.5">
+                    <h4 className="text-xs font-bold text-[var(--bd-text)] flex items-center space-x-1.5">
                       <span>{activeDetailItem.authorName}</span>
                       {activeDetailItem.authorRole && (
                         <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300">
@@ -747,7 +747,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
                         </span>
                       )}
                     </h4>
-                    <span className="text-[10px] text-slate-400">
+                    <span className="text-[10px] text-[var(--bd-muted)]">
                       发布于 {activeDetailItem.createdAt || '近期'}
                     </span>
                   </div>
@@ -758,7 +758,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
                     onClick={() => onToggleFollow(activeDetailItem.authorId)}
                     className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
                       followedUserIds.includes(activeDetailItem.authorId)
-                        ? 'bg-slate-800 text-slate-300 border border-slate-700'
+                        ? 'bg-[var(--bd-chip)] text-[var(--bd-sub)] border border-[var(--bd-border)]'
                         : 'bg-rose-500 text-white hover:bg-rose-400 shadow-xs'
                     }`}
                   >
@@ -767,7 +767,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
 
                   <button
                     onClick={() => setActiveDetailItem(null)}
-                    className="hidden lg:flex p-1.5 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer"
+                    className="hidden lg:flex p-1.5 rounded-full text-[var(--bd-muted)] hover:text-[var(--bd-text)] hover:bg-[var(--bd-chip)] cursor-pointer"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -780,7 +780,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
                 {/* AI Recommendation Reason Banner */}
                 <div className="p-3 rounded-2xl bg-rose-500/10 border border-rose-500/25 flex items-start space-x-2.5">
                   <Sparkles className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
-                  <div className="text-[11px] text-slate-300 leading-snug">
+                  <div className="text-[11px] text-[var(--bd-sub)] leading-snug">
                     <span className="text-rose-300 font-bold block mb-0.5">
                       ✨ AI 推荐度 {activeDetailItem.aiScore}% ({activeDetailItem.aiReason})
                     </span>
@@ -789,19 +789,19 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
                 </div>
 
                 {/* Title */}
-                <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-snug">
+                <h2 className="text-base sm:text-lg font-bold text-[var(--bd-text)] tracking-tight leading-snug">
                   {activeDetailItem.title}
                 </h2>
 
                 {/* Summary / Body */}
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed whitespace-pre-line">
+                <p className="text-xs sm:text-sm text-[var(--bd-sub)] leading-relaxed whitespace-pre-line">
                   {activeDetailItem.summary}
                 </p>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {activeDetailItem.tags.map(tag => (
-                    <span key={tag} className="text-[11px] text-cyan-300 bg-slate-800/80 px-2 py-0.5 rounded-lg border border-slate-700/80">
+                    <span key={tag} className="text-[11px] text-[var(--bd-accent)] bg-[var(--bd-chip)] px-2 py-0.5 rounded-lg border border-[var(--bd-border)]">
                       #{tag}
                     </span>
                   ))}
@@ -810,13 +810,13 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
                 {/* Attached Product Card (If post has product) */}
                 {activeDetailItem.rawPost?.product && (
                   <div className="space-y-2">
-                    <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-slate-900 to-slate-950 border border-amber-500/30 flex items-center justify-between">
+                    <div className="p-3.5 rounded-2xl bg-[var(--bd-chip)] border border-[var(--bd-border)] flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
                           <ShoppingBag className="w-5 h-5" />
                         </div>
                         <div>
-                          <div className="text-xs font-bold text-white">
+                          <div className="text-xs font-bold text-[var(--bd-text)]">
                             {activeDetailItem.rawPost.product.title}
                           </div>
                           <div className="text-xs font-bold text-amber-400 font-mono-num">
@@ -833,7 +833,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
                     </div>
 
                     {/* Objective Biomarker Endorsement Badge (AI自动抓取创作者最近7天体测数据背书) */}
-                    <div className="p-3.5 rounded-2xl bg-gradient-to-br from-emerald-950/40 via-slate-900 to-slate-950 border border-emerald-500/40 space-y-2.5 shadow-md">
+                    <div className="p-3.5 rounded-2xl bg-[var(--bd-accent-soft)] border border-[var(--bd-accent)] space-y-2.5 shadow-md">
                       <div className="flex items-center justify-between text-xs border-b border-emerald-500/20 pb-2">
                         <div className="flex items-center space-x-1.5 text-emerald-400 font-bold">
                           <ShieldCheck className="w-4 h-4 text-emerald-400" />
@@ -846,24 +846,24 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
 
                       {/* 3-Pillar Wearable Metrics Grid */}
                       <div className="grid grid-cols-3 gap-2 text-center">
-                        <div className="p-2 rounded-xl bg-slate-950/80 border border-slate-800">
-                          <div className="text-[10px] text-slate-400">7天心率降幅</div>
+                        <div className="p-2 rounded-xl bg-[var(--bd-chip)] border border-[var(--bd-border)]">
+                          <div className="text-[10px] text-[var(--bd-muted)]">7天心率降幅</div>
                           <div className="text-xs sm:text-sm font-black text-rose-300 font-mono-num mt-0.5">
                             -{activeDetailItem.rawPost.product.biomarkerEndorsement?.heartRateReductionBpm || 4.6} bpm
                           </div>
                           <div className="text-[9px] text-emerald-400">负荷下调</div>
                         </div>
 
-                        <div className="p-2 rounded-xl bg-slate-950/80 border border-slate-800">
-                          <div className="text-[10px] text-slate-400">7天深睡达标率</div>
+                        <div className="p-2 rounded-xl bg-[var(--bd-chip)] border border-[var(--bd-border)]">
+                          <div className="text-[10px] text-[var(--bd-muted)]">7天深睡达标率</div>
                           <div className="text-xs sm:text-sm font-black text-cyan-300 font-mono-num mt-0.5">
                             {activeDetailItem.rawPost.product.biomarkerEndorsement?.sleepGoalRatePct || 96.2}%
                           </div>
                           <div className="text-[9px] text-cyan-400">修复充沛</div>
                         </div>
 
-                        <div className="p-2 rounded-xl bg-slate-950/80 border border-slate-800">
-                          <div className="text-[10px] text-slate-400">深睡日均延长</div>
+                        <div className="p-2 rounded-xl bg-[var(--bd-chip)] border border-[var(--bd-border)]">
+                          <div className="text-[10px] text-[var(--bd-muted)]">深睡日均延长</div>
                           <div className="text-xs sm:text-sm font-black text-emerald-300 font-mono-num mt-0.5">
                             +{activeDetailItem.rawPost.product.biomarkerEndorsement?.deepSleepIncreaseMinutes || 44} 分钟
                           </div>
@@ -872,7 +872,7 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
                       </div>
 
                       {/* AI Evaluation Quote */}
-                      <p className="text-[11px] text-slate-300 leading-relaxed bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80">
+                      <p className="text-[11px] text-[var(--bd-sub)] leading-relaxed bg-[var(--bd-chip)] p-2.5 rounded-xl border border-[var(--bd-border)]">
                         {activeDetailItem.rawPost.product.biomarkerEndorsement?.aiEvaluationText ||
                           'AI已自动抓取达人Apple Watch/Whoop最近7天体测流：连续使用期间，心血管静息心率下降明显，深度睡眠达标率高位稳定，具有极强客观生理实证依据。'}
                       </p>
@@ -894,13 +894,13 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
 
                 {/* 1-on-1 Expert Consultation Entry */}
                 {onOpenConsultation && (
-                  <div className="p-3.5 rounded-2xl bg-gradient-to-r from-teal-500/15 via-slate-900 to-slate-950 border border-teal-500/30 flex items-center justify-between">
+                  <div className="p-3.5 rounded-2xl bg-[var(--bd-chip)] border border-[var(--bd-border)] flex items-center justify-between">
                     <div className="flex items-center space-x-2.5">
                       <div className="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center shrink-0">
                         <Stethoscope className="w-4 h-4" />
                       </div>
                       <div className="text-xs">
-                        <span className="font-bold text-white block">三甲名医与长寿抗衰团队</span>
+                        <span className="font-bold text-[var(--bd-text)] block">三甲名医与长寿抗衰团队</span>
                         <span className="text-[10px] text-teal-300">针对您的体检与生活习惯，定制专属 1 对 1 逆龄方案</span>
                       </div>
                     </div>
@@ -914,19 +914,19 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
                 )}
 
                 {/* Comments Stream */}
-                <div className="pt-3 border-t border-slate-800/80 space-y-2.5">
-                  <div className="text-xs font-bold text-slate-300">
+                <div className="pt-3 border-t border-[var(--bd-border)] space-y-2.5">
+                  <div className="text-xs font-bold text-[var(--bd-sub)]">
                     评论互动 ({activeDetailItem.rawPost?.comments.length || 3} 条)
                   </div>
                   
                   {activeDetailItem.rawPost?.comments && activeDetailItem.rawPost.comments.length > 0 ? (
                     activeDetailItem.rawPost.comments.map(c => (
-                      <div key={c.id} className="text-xs space-y-0.5 p-2 rounded-xl bg-slate-950/50 border border-slate-800/60">
+                      <div key={c.id} className="text-xs space-y-0.5 p-2 rounded-xl bg-[var(--bd-chip)] border border-[var(--bd-border)]">
                         <div className="flex items-center justify-between">
-                          <span className="font-bold text-slate-300">{c.authorName}</span>
+                          <span className="font-bold text-[var(--bd-sub)]">{c.authorName}</span>
                           <span className="text-[10px] text-slate-500">{new Date(c.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                         </div>
-                        <p className="text-slate-400">{c.text}</p>
+                        <p className="text-[var(--bd-sub)]">{c.text}</p>
                       </div>
                     ))
                   ) : (
@@ -939,19 +939,19 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
               </div>
 
               {/* Bottom Interactive Bar (Like, Comment Input) */}
-              <div className="p-3 sm:p-4 border-t border-slate-800 bg-slate-950/90 flex items-center space-x-2">
+              <div className="p-3 sm:p-4 border-t border-[var(--bd-border)] bg-[var(--bd-chip)] flex items-center space-x-2">
                 <input
                   type="text"
                   placeholder="说点什么分享长寿心得..."
                   value={commentText}
                   onChange={(e) => setCommentText(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSendDetailComment()}
-                  className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500"
+                  className="flex-1 bg-[var(--bd-chip)] border border-[var(--bd-border)] rounded-xl px-3 py-1.5 text-xs text-[var(--bd-text)] placeholder-[var(--bd-muted)] focus:outline-none focus:border-rose-500"
                 />
 
                 <button
                   onClick={handleSendDetailComment}
-                  className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold cursor-pointer"
+                  className="px-3 py-1.5 rounded-xl bg-[var(--bd-chip)] hover:bg-[var(--bd-border)] text-[var(--bd-sub)] text-xs font-semibold cursor-pointer"
                 >
                   <Send className="w-3.5 h-3.5" />
                 </button>
@@ -974,42 +974,42 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
       {/* Shopping Product Inspection Modal */}
       {inspectProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
-          <div className="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-2xl space-y-4">
+          <div className="w-full max-w-sm bg-[var(--bd-card)] border border-[var(--bd-border)] rounded-3xl p-5 shadow-2xl space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-amber-400">长寿精选带货</span>
-              <button onClick={() => setInspectProduct(null)} className="text-slate-400 hover:text-white">
+              <button onClick={() => setInspectProduct(null)} className="text-[var(--bd-muted)] hover:text-[var(--bd-text)]">
                 <X className="w-4 h-4" />
               </button>
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">{inspectProduct.title}</h3>
-              <p className="text-xs text-slate-400 mt-1">健康正品认证 · 佣金返利保障</p>
+              <h3 className="text-base font-bold text-[var(--bd-text)]">{inspectProduct.title}</h3>
+              <p className="text-xs text-[var(--bd-muted)] mt-1">健康正品认证 · 佣金返利保障</p>
               <div className="text-xl font-bold text-amber-400 font-mono-num mt-2">
                 ¥{inspectProduct.price}
               </div>
             </div>
 
             {/* AI 7-Day Wearable Objective Endorsement in Checkout Modal */}
-            <div className="p-3 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-xs space-y-2">
+            <div className="p-3 rounded-2xl bg-[var(--bd-accent-soft)] border border-[var(--bd-accent)] text-xs space-y-2">
               <div className="flex items-center space-x-1.5 text-emerald-400 font-bold text-[11px]">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>AI 创作者近7天真实体测背书</span>
               </div>
               <div className="grid grid-cols-2 gap-2 text-center text-[10px]">
-                <div className="p-1.5 rounded-lg bg-slate-950 border border-slate-800">
-                  <span className="text-slate-400 block">7天心率降幅</span>
+                <div className="p-1.5 rounded-lg bg-[var(--bd-chip)] border border-[var(--bd-border)]">
+                  <span className="text-[var(--bd-muted)] block">7天心率降幅</span>
                   <span className="font-bold text-rose-300 font-mono-num text-xs">
                     -{inspectProduct.biomarkerEndorsement?.heartRateReductionBpm || 4.6} bpm
                   </span>
                 </div>
-                <div className="p-1.5 rounded-lg bg-slate-950 border border-slate-800">
-                  <span className="text-slate-400 block">7天深睡达标率</span>
+                <div className="p-1.5 rounded-lg bg-[var(--bd-chip)] border border-[var(--bd-border)]">
+                  <span className="text-[var(--bd-muted)] block">7天深睡达标率</span>
                   <span className="font-bold text-cyan-300 font-mono-num text-xs">
                     {inspectProduct.biomarkerEndorsement?.sleepGoalRatePct || 96.2}%
                   </span>
                 </div>
               </div>
-              <p className="text-[10px] text-slate-300 leading-snug">
+              <p className="text-[10px] text-[var(--bd-sub)] leading-snug">
                 {inspectProduct.biomarkerEndorsement?.aiEvaluationText || '穿戴设备连续记录，心血管静息心率与深睡修复均呈强显著正相关。'}
               </p>
             </div>

@@ -25,7 +25,8 @@ import {
   Crown,
   ChevronRight,
   Shield,
-  Send
+  Send,
+  LogIn
 } from 'lucide-react';
 import { UserProfile, TimeAdjustment, UserRegion, AccountChannel, UserRole } from '../types';
 import { calculateBiologicalAgeOffset } from '../services/longevityCalculator';
@@ -34,6 +35,7 @@ import {
   saveQuestionnaireSubmission, 
   saveHealthReportRecord,
   signInWithGoogle,
+  fetchUserProfileById,
   BOOTSTRAP_ADMIN_EMAIL
 } from '../services/firebase';
 import { useLanguage } from '../services/i18n';
@@ -55,7 +57,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
   const { language } = useLanguage();
 
   // Step 1: Account Registration | Step 2: Health Setting (Optional / 不强制)
-  const [currentStep, setCurrentStep] = useState<'register' | 'health'>('register');
+  const [currentStep, setCurrentStep] = useState<'register' | 'health' | 'login'>('register');
 
   // Region: 'mainland' (中国大陆) | 'overseas' (海外/全球)
   const [region, setRegion] = useState<UserRegion>(currentProfile.region || 'mainland');
@@ -91,6 +93,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
   // Submitting state
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [authSuccessNotice, setAuthSuccessNotice] = useState<string | null>(null);
+  const [loginNotice, setLoginNotice] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -123,6 +126,31 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
       }
     } catch (e) {
       console.warn('Google sign-in error:', e);
+    }
+  };
+
+  const handleExistingAccountLogin = async () => {
+    setIsSubmitting(true);
+    setLoginNotice(null);
+    try {
+      const firebaseUser = await signInWithGoogle();
+      if (!firebaseUser) {
+        setLoginNotice(language === 'zh' ? 'Google 登录未完成，请重试或关闭登录窗口后再试。' : 'Google sign-in was not completed. Please try again.');
+        return;
+      }
+
+      const savedProfile = await fetchUserProfileById(firebaseUser.uid);
+      if (!savedProfile) {
+        setLoginNotice(language === 'zh'
+          ? '该 Google 账号尚未关联生命维度档案。请先完成注册，再使用此账号登录。'
+          : 'No Life Dimensions profile is linked to this Google account. Register first, then sign in with this account.');
+        return;
+      }
+
+      onCompleteProfile(savedProfile);
+      onClose();
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -220,7 +248,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
             <div>
               <div className="flex items-center space-x-2">
                 <h2 className="text-lg font-bold text-white tracking-tight">
-                  {language === 'zh' ? '用户注册与账号激活' : 'Account Registration'}
+                  {language === 'zh' ? '用户注册与账号登录' : 'Account Registration & Login'}
                 </h2>
                 <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
                   {language === 'zh' ? '云端数据库存储' : 'Cloud Firestore'}
@@ -263,6 +291,20 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
             }`}
           >
             {language === 'zh' ? '第 2 步：健康目标配置 (选填/可跳过)' : 'Step 2: Profile Settings (Optional)'}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setLoginNotice(null);
+              setCurrentStep('login');
+            }}
+            className={`flex-1 py-3 text-xs font-semibold text-center border-b-2 transition-all cursor-pointer ${
+              currentStep === 'login'
+                ? 'border-emerald-400 text-emerald-300 bg-emerald-500/5'
+                : 'border-transparent text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            {language === 'zh' ? '第 3 步：已有账号登录' : 'Step 3: Existing Account Login'}
           </button>
         </div>
 
@@ -722,6 +764,33 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
             </div>
           )}
 
+          {currentStep === 'login' && (
+            <div className="space-y-5 animate-in fade-in duration-150">
+              <div className="p-4 rounded-2xl bg-slate-900/70 border border-slate-800">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+                    <LogIn className="w-5 h-5 text-emerald-300" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-white">{language === 'zh' ? '已有账号登录' : 'Log in to an existing account'}</h3>
+                    <p className="text-xs text-slate-400">{language === 'zh' ? '通过注册时绑定的 Google 账号验证身份并恢复云端档案' : 'Verify with the Google account linked to your cloud profile'}</p>
+                  </div>
+                </div>
+                <div className="text-xs leading-relaxed text-slate-300 p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+                  {language === 'zh'
+                    ? '当前只有 Google 登录接入了真实身份验证。用户名、手机号、邮箱、微信、支付宝等注册方式目前只保存档案标识，没有设置或验证密码/验证码，因此暂不能安全地用于跨设备登录。'
+                    : 'Google is currently the only sign-in method with real identity verification. Other registration options save a profile identifier but do not verify a password or code, so they cannot safely support cross-device login yet.'}
+                </div>
+              </div>
+
+              {loginNotice && (
+                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200" role="status">
+                  {loginNotice}
+                </div>
+              )}
+            </div>
+          )}
+
         </div>
 
         {/* Modal Footer */}
@@ -735,13 +804,21 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
               <span>{language === 'zh' ? '前往偏好设置' : 'Optional settings'}</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
-          ) : (
+          ) : currentStep === 'health' ? (
             <button
               type="button"
               onClick={() => setCurrentStep('register')}
               className="text-xs text-slate-400 hover:text-white flex items-center space-x-1 cursor-pointer"
             >
               <span>{language === 'zh' ? '返回账号注册' : 'Back to account'}</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setCurrentStep('register')}
+              className="text-xs text-slate-400 hover:text-white flex items-center space-x-1 cursor-pointer"
+            >
+              <span>{language === 'zh' ? '返回账号注册' : 'Back to registration'}</span>
             </button>
           )}
 
@@ -755,15 +832,19 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
             </button>
             <button
               type="button"
-              onClick={handleFinalSubmit}
+              onClick={currentStep === 'login' ? handleExistingAccountLogin : handleFinalSubmit}
               disabled={isSubmitting}
               className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 hover:brightness-110 transition-all cursor-pointer disabled:opacity-50"
             >
               <CheckCircle2 className="w-4 h-4" />
               <span>
-                {isSubmitting 
-                  ? (language === 'zh' ? '保存注册中...' : 'Saving...') 
-                  : (language === 'zh' ? '完成注册并存入数据库' : 'Complete Registration')}
+                {currentStep === 'login'
+                  ? (isSubmitting
+                    ? (language === 'zh' ? '登录中...' : 'Signing in...')
+                    : (language === 'zh' ? '使用 Google 账号登录' : 'Continue with Google'))
+                  : (isSubmitting
+                    ? (language === 'zh' ? '保存注册中...' : 'Saving...')
+                    : (language === 'zh' ? '完成注册并存入数据库' : 'Complete Registration'))}
               </span>
             </button>
           </div>

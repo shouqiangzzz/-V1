@@ -47,6 +47,7 @@ import {
 } from '../../types';
 import { ComplianceGuideModal } from './ComplianceGuideModal';
 import { CreatorHealthMetricsVisual } from './CreatorHealthMetricsVisual';
+import { CommunityVideoPlayer } from './CommunityVideoPlayer';
 import { useLanguage } from '../../services/i18n';
 import { 
   rankContentForUser, 
@@ -701,12 +702,19 @@ export const HealthCommunityHub: React.FC<HealthCommunityHubProps> = ({
             <div className="lg:w-7/12 bg-black flex items-center justify-center relative min-h-[300px] lg:min-h-[520px] overflow-hidden">
               {activeDetailItem.mediaType === 'video' ? (
                 <div className="w-full h-full flex items-center justify-center relative bg-black">
-                  <video
-                    src={activeDetailItem.videoUrl || 'https://assets.mixkit.co/videos/preview/mixkit-healthy-food-and-fruits-on-a-table-41221-large.mp4'}
-                    controls
-                    autoPlay={isPlayingModalVideo}
-                    className="w-full h-full max-h-[520px] object-contain"
-                  />
+                  {activeDetailItem.videoUrl ? (
+                    <CommunityVideoPlayer
+                      src={activeDetailItem.videoUrl}
+                      title={activeDetailItem.title}
+                      poster={activeDetailItem.coverUrl}
+                      autoPlay={isPlayingModalVideo}
+                      className="w-full h-full max-h-[520px] object-contain"
+                    />
+                  ) : (
+                    <div className="px-6 text-center text-sm text-slate-400" role="status">
+                      {language === 'zh' ? '该视频暂时没有可播放的媒体地址。' : 'This video has no playable media source.'}
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="w-full h-full flex items-center justify-center p-2">

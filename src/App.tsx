@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   loadUserProfile, 
   saveUserProfile, 
@@ -69,6 +69,7 @@ import {
   BOOTSTRAP_ADMIN_EMAIL
 } from './services/firebase';
 import { SystemConfig } from './types';
+import { migrateLegacyCommunityVideo } from './services/mediaStorage';
 
 // 5-Dimension Innovation Upgrades
 import { 
@@ -140,8 +141,43 @@ export const App: React.FC = () => {
   // Community, Video & Merchant states
   const [expertVideos, setExpertVideos] = useState<ExpertLectureVideo[]>(loadExpertVideos);
   const [posts, setPosts] = useState<CommunityPost[]>(loadCommunityPosts);
+  const legacyVideoMigrationStarted = useRef(false);
   const [merchantCert, setMerchantCert] = useState<MerchantCertification>(loadMerchantCert);
   const [followedUserIds, setFollowedUserIds] = useState<string[]>(loadFollowedUserIds);
+
+  // Move older Base64 video posts out of localStorage to avoid quota failures.
+  useEffect(() => {
+    const legacyVideoPosts = posts.filter(
+      (post) => post.mediaType === 'video' && post.mediaUrl?.startsWith('data:video/'),
+    );
+    if (legacyVideoMigrationStarted.current || legacyVideoPosts.length === 0) return;
+
+    legacyVideoMigrationStarted.current = true;
+    void Promise.all(legacyVideoPosts.map(async (post) => {
+      try {
+        return { postId: post.id, mediaUrl: await migrateLegacyCommunityVideo(post.mediaUrl!) };
+      } catch (error) {
+        console.warn(`Could not migrate saved video ${post.id}:`, error);
+        return { postId: post.id, mediaUrl: null };
+      }
+    })).then((migrations) => {
+      const migratedUrls = new Map(
+        migrations.filter((migration) => migration.mediaUrl).map((migration) => [migration.postId, migration.mediaUrl!]),
+      );
+      if (migratedUrls.size === 0) return;
+
+      setPosts((currentPosts) => {
+        const updatedPosts = currentPosts.map((post) => {
+          const migratedUrl = migratedUrls.get(post.id);
+          return migratedUrl && post.mediaUrl?.startsWith('data:video/')
+            ? { ...post, mediaUrl: migratedUrl }
+            : post;
+        });
+        saveCommunityPosts(updatedPosts);
+        return updatedPosts;
+      });
+    });
+  }, [posts]);
 
   // Community Modals
   const [isUploadPostOpen, setIsUploadPostOpen] = useState(false);

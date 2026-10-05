@@ -192,6 +192,32 @@ export const CARTOON_AVATARS: CartoonAvatar[] = [
   { id: 'taishan',     name: '泰山日出',   category: 'scenery', url: '/avatars/taishan.jpg',     badge: '山东' },
 ];
 
+// ===== AI Copilot (长寿私教) assistant avatars — DIY selectable =====
+export interface AssistantAvatar {
+  id: string;
+  name: string;
+  url: string | null; // null => default bot icon
+  badge: string;
+}
+
+export const ASSISTANT_AVATARS: AssistantAvatar[] = [
+  { id: 'bot_default', name: '默认机器人',   url: null,                        badge: 'AI' },
+  { id: 'doc_smith',   name: '史密斯医生',   url: '/avatars/doc_smith.jpg',    badge: '欧美博士' },
+  { id: 'doc_emma',    name: '艾玛医生',     url: '/avatars/doc_emma.jpg',     badge: '欧美博士' },
+  { id: 'doc_chen',    name: '陈医生',       url: '/avatars/doc_chen.jpg',     badge: '医学博士' },
+  { id: 'doc_anna',    name: '安娜医生',     url: '/avatars/doc_anna.jpg',     badge: '医学博士' },
+  { id: 'kakashi',     name: '旗木卡卡西',   url: '/avatars/kakashi.jpg',      badge: '忍者导师' },
+  { id: 'sakura',      name: '春野樱',       url: '/avatars/sakura.jpg',       badge: '医疗忍' },
+  { id: 'zhugeliang',  name: '诸葛孔明',     url: '/avatars/zhugeliang.jpg',   badge: '军师' },
+  { id: 'naruto',      name: '漩涡鸣人',     url: '/avatars/naruto.jpg',       badge: '木叶' },
+  { id: 'sasuke',      name: '宇智波佐助',   url: '/avatars/sasuke.jpg',       badge: '宇智波' },
+  { id: 'tangsan',     name: '唐三',         url: '/avatars/tangsan.jpg',      badge: '斗罗' },
+  { id: 'yefan',       name: '叶凡',         url: '/avatars/yefan.jpg',        badge: '遮天' },
+  { id: 'shihou',      name: '石昊',         url: '/avatars/shihou.jpg',       badge: '荒天帝' },
+];
+
+export const ASSISTANT_AVATAR_KEY = 'bd_assistant_avatar';
+
 // ====== 10 New UI Style Presets (CSS-variable driven, full light & dark palettes) ======
 export interface UiStyleVars {
   bg: string;          // --bd-bg         page background

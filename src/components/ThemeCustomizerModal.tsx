@@ -17,7 +17,7 @@ import {
   Camera
 } from 'lucide-react';
 import { UserProfile, ThemeConfig, BackgroundStyle, BackgroundPattern } from '../types';
-import { THEME_PRESETS, CARTOON_AVATARS, CartoonAvatar, UI_STYLES } from '../services/themeHelper';
+import { THEME_PRESETS, CARTOON_AVATARS, CartoonAvatar, UI_STYLES, ASSISTANT_AVATARS, ASSISTANT_AVATAR_KEY } from '../services/themeHelper';
 import { DEFAULT_THEME_CONFIG } from '../services/storage';
 
 interface ThemeCustomizerModalProps {
@@ -47,6 +47,9 @@ export const ThemeCustomizerModal: React.FC<ThemeCustomizerModalProps> = ({
     profile.avatarType || 'preset'
   );
   const [avatarFilter, setAvatarFilter] = useState<'all' | 'naruto' | 'anime' | 'guofeng' | 'scenery'>('all');
+  const [assistantAvatarId, setAssistantAvatarId] = useState<string>(
+    typeof localStorage !== 'undefined' ? localStorage.getItem(ASSISTANT_AVATAR_KEY) || 'bot_default' : 'bot_default'
+  );
   const [customUrlInput, setCustomUrlInput] = useState<string>('');
   const [uploadError, setUploadError] = useState<string | null>(null);
 
@@ -407,6 +410,46 @@ export const ThemeCustomizerModal: React.FC<ThemeCustomizerModalProps> = ({
                           className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full text-slate-950 flex items-center justify-center shadow-xs"
                           style={{ backgroundColor: theme.customAccentColor }}
                         >
+                          <Check className="w-2.5 h-2.5 stroke-[3]" />
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* AI 长寿私教头像 DIY */}
+            <div className="pt-2">
+              <span className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1.5 mb-2.5">
+                <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                <span>AI 长寿私教形象 · 点击即时生效</span>
+              </span>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5 max-h-[220px] overflow-y-auto pr-1">
+                {ASSISTANT_AVATARS.map((a) => {
+                  const isSel = assistantAvatarId === a.id;
+                  return (
+                    <button
+                      key={a.id}
+                      type="button"
+                      onClick={() => { setAssistantAvatarId(a.id); localStorage.setItem(ASSISTANT_AVATAR_KEY, a.id); }}
+                      className={`p-2 rounded-2xl border text-center transition-all cursor-pointer relative group ${
+                        isSel ? 'bg-slate-800 border-emerald-500 shadow-md shadow-emerald-500/10' : 'bg-slate-950/70 border-slate-800 hover:border-slate-700 hover:bg-slate-900'
+                      }`}
+                    >
+                      <div className="w-12 h-12 mx-auto rounded-xl overflow-hidden mb-1.5 bg-slate-900 p-0.5">
+                        {a.url ? (
+                          <img src={a.url} alt={a.name} className="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform" />
+                        ) : (
+                          <div className="w-full h-full rounded-lg bg-gradient-to-tr from-cyan-400 to-emerald-400 flex items-center justify-center">
+                            <span className="text-lg">🤖</span>
+                          </div>
+                        )}
+                      </div>
+                      <span className="text-[11px] font-semibold text-slate-300 block truncate">{a.name}</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-slate-800/80 text-slate-400 font-mono">{a.badge}</span>
+                      {isSel && (
+                        <div className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full text-slate-950 flex items-center justify-center shadow-xs" style={{ backgroundColor: theme.customAccentColor }}>
                           <Check className="w-2.5 h-2.5 stroke-[3]" />
                         </div>
                       )}

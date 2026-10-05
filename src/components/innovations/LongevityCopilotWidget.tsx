@@ -16,6 +16,7 @@ import {
 import { UserProfile, HabitTrackerItem } from '../../types';
 import { WearableDevice } from '../../types/innovations';
 import { useLanguage } from '../../services/i18n';
+import { ASSISTANT_AVATARS, ASSISTANT_AVATAR_KEY } from '../../services/themeHelper';
 
 interface LongevityCopilotWidgetProps {
   profile: UserProfile;
@@ -38,6 +39,7 @@ export const LongevityCopilotWidget: React.FC<LongevityCopilotWidgetProps> = ({
   onOpenConsultation,
 }) => {
   const { language } = useLanguage();
+  const assistantAvatar = ASSISTANT_AVATARS.find(a => a.id === (typeof localStorage !== 'undefined' ? localStorage.getItem(ASSISTANT_AVATAR_KEY) : null)) || ASSISTANT_AVATARS[0];
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -121,10 +123,14 @@ export const LongevityCopilotWidget: React.FC<LongevityCopilotWidgetProps> = ({
           {/* Header */}
           <div className="px-5 py-4 border-b border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 flex items-center justify-between shrink-0">
             <div className="flex items-center space-x-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-400 to-emerald-400 p-0.5">
-                <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                  <Bot className="w-5 h-5 text-emerald-400" />
-                </div>
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-400 to-emerald-400 p-0.5 overflow-hidden shrink-0">
+                {assistantAvatar.url ? (
+                  <img src={assistantAvatar.url} alt={assistantAvatar.name} className="w-full h-full object-cover rounded-[10px]" />
+                ) : (
+                  <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+                    <Bot className="w-5 h-5 text-emerald-400" />
+                  </div>
+                )}
               </div>
               <div>
                 <div className="flex items-center space-x-1.5">

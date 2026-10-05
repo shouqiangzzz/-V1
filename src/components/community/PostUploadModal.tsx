@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { 
   Upload, 
   Video, 
@@ -31,6 +31,7 @@ import { auditContentWithAI, AuditResult } from '../../services/aiModerator';
 import { INITIAL_PRODUCTS } from '../../services/communityStorage';
 import { ComplianceGuideModal } from './ComplianceGuideModal';
 import { useLanguage } from '../../services/i18n';
+import { saveCommunityVideo } from '../../services/mediaStorage';
 
 interface PostUploadModalProps {
   isOpen: boolean;
@@ -56,6 +57,8 @@ export const PostUploadModal: React.FC<PostUploadModalProps> = ({
   const [mediaType, setMediaType] = useState<'video' | 'image' | 'text'>('image');
   const [mediaUrl, setMediaUrl] = useState<string | null>(null);
   const [mediaFileName, setMediaFileName] = useState<string | null>(null);
+  const [selectedVideoFile, setSelectedVideoFile] = useState<File | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const [visibility, setVisibility] = useState<PostVisibility>('public');
   const [selectedTag, setSelectedTag] = useState<string>('健康锻炼');
   const [attachedProduct, setAttachedProduct] = useState<AttachedProduct | null>(null);
@@ -68,6 +71,12 @@ export const PostUploadModal: React.FC<PostUploadModalProps> = ({
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    return () => {
+      if (mediaUrl?.startsWith('blob:')) URL.revokeObjectURL(mediaUrl);
+    };
+  }, [mediaUrl]);
+
   if (!isOpen) return null;
 
   // Handle local file selection (video or image)
@@ -76,23 +85,32 @@ export const PostUploadModal: React.FC<PostUploadModalProps> = ({
     if (!file) return;
 
     setMediaFileName(file.name);
-    const isVideo = file.type.startsWith('video');
+    const isVideo = file.type.startsWith('video/') || /\.(mp4|m4v|mov|webm|ogv|ogg|avi|mkv)$/i.test(file.name);
     setMediaType(isVideo ? 'video' : 'image');
+    setUploadError(null);
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      setMediaUrl(event.target?.result as string);
-    };
-    reader.readAsDataURL(file);
+    if (isVideo) {
+      setSelectedVideoFile(file);
+      setMediaUrl(URL.createObjectURL(file));
+    } else {
+      setSelectedVideoFile(null);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setMediaUrl(event.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   // Sample media quick presets for testing
   const handleSelectSample = (type: 'video' | 'image') => {
     if (type === 'video') {
+      setSelectedVideoFile(null);
       setMediaType('video');
       setMediaUrl('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4');
       setMediaFileName('2026_晨跑有氧核心跟练_Zone2.mp4');
     } else {
+      setSelectedVideoFile(null);
       setMediaType('image');
       setMediaUrl('https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80');
       setMediaFileName('低GI抗炎生机能量碗_控糖打卡.jpg');
@@ -109,51 +127,60 @@ export const PostUploadModal: React.FC<PostUploadModalProps> = ({
 
   // Main Submit Handler with AI Moderation
   const handleSubmit = async () => {
-    if (!content.trim() && !mediaUrl) return;
+    if (!content.trim() && !mediaUrl && !selectedVideoFile) return;
 
     setIsAuditing(true);
     setAuditResult(null);
+    setUploadError(null);
 
-    const result = await auditContentWithAI(content, mediaType, mediaFileName || undefined);
-    setIsAuditing(false);
-    setAuditResult(result);
+    try {
+      const result = await auditContentWithAI(content, mediaType, mediaFileName || undefined);
+      setAuditResult(result);
 
-    const newPost: CommunityPost = {
-      id: `post_${Date.now()}`,
-      authorId: currentUser.id || 'current_user',
-      authorName: currentUser.name || (language === 'zh' ? '探索者' : 'Seeker'),
-      authorAvatar: currentUser.avatarUrl || 'https://api.dicebear.com/7.x/bottts/svg?seed=LifeSeeker88',
-      authorBadge: '🏅 生命行者',
-      createdAt: Date.now(),
-      content: content.trim(),
-      mediaType,
-      mediaUrl: mediaUrl || undefined,
-      videoThumbnail: mediaType === 'video' ? 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80' : undefined,
-      mediaDuration: mediaType === 'video' ? '00:35' : undefined,
-      visibility,
-      moderationStatus: result.status,
-      moderationReason: result.reason,
-      pendingAdminDeadline: result.status === 'pending_admin' ? Date.now() + 86400000 : undefined,
-      product: attachedProduct || undefined,
-      likesCount: 1,
-      likedByMe: true,
-      comments: [],
-      tags: [selectedTag],
-      viewsCount: 1,
-    };
+      let savedMediaUrl = mediaUrl || undefined;
+      if (selectedVideoFile && result.status !== 'rejected') {
+        savedMediaUrl = await saveCommunityVideo(selectedVideoFile);
+      }
 
-    if (result.status === 'approved') {
-      // Directly approve and publish
-      onAddPost(newPost);
-      setTimeout(() => {
-        onClose();
-      }, 700);
-    } else if (result.status === 'pending_admin') {
-      // Ambiguous -> with held, goes to admin queue with 24h timer
-      onAddPost(newPost);
-    } else {
-      // Rejected -> keep draft for appeal
-      setRejectedPostDraft(newPost);
+      const newPost: CommunityPost = {
+        id: `post_${Date.now()}`,
+        authorId: currentUser.id || 'current_user',
+        authorName: currentUser.name || (language === 'zh' ? '探索者' : 'Seeker'),
+        authorAvatar: currentUser.avatarUrl || 'https://api.dicebear.com/7.x/bottts/svg?seed=LifeSeeker88',
+        authorBadge: '🏅 生命行者',
+        createdAt: Date.now(),
+        content: content.trim(),
+        mediaType,
+        mediaUrl: result.status === 'rejected' && selectedVideoFile ? undefined : savedMediaUrl,
+        videoThumbnail: mediaType === 'video' ? 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80' : undefined,
+        mediaDuration: mediaType === 'video' ? '00:35' : undefined,
+        visibility,
+        moderationStatus: result.status,
+        moderationReason: result.reason,
+        pendingAdminDeadline: result.status === 'pending_admin' ? Date.now() + 86400000 : undefined,
+        product: attachedProduct || undefined,
+        likesCount: 1,
+        likedByMe: true,
+        comments: [],
+        tags: [selectedTag],
+        viewsCount: 1,
+      };
+
+      if (result.status === 'approved') {
+        onAddPost(newPost);
+        setTimeout(() => onClose(), 700);
+      } else if (result.status === 'pending_admin') {
+        onAddPost(newPost);
+      } else {
+        setRejectedPostDraft(newPost);
+      }
+    } catch (error) {
+      console.error('Failed to save the uploaded video:', error);
+      setUploadError(language === 'zh'
+        ? '视频保存失败，请检查浏览器可用空间后重试。'
+        : 'Could not save this video. Check the available browser storage and try again.');
+    } finally {
+      setIsAuditing(false);
     }
   };
 
@@ -327,6 +354,9 @@ export const PostUploadModal: React.FC<PostUploadModalProps> = ({
                     onClick={() => {
                       setMediaUrl(null);
                       setMediaFileName(null);
+                      setSelectedVideoFile(null);
+                      setUploadError(null);
+                      if (fileInputRef.current) fileInputRef.current.value = '';
                     }}
                     className="text-rose-400 hover:underline cursor-pointer"
                   >
@@ -476,6 +506,7 @@ export const PostUploadModal: React.FC<PostUploadModalProps> = ({
           <div className="text-xs text-slate-400 flex items-center space-x-1.5">
             <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
             <span>{language === 'zh' ? '提交后将触发 AI 智能合规预检' : 'Instant AI Safety Audit on Submit'}</span>
+            {uploadError && <span role="alert" className="ml-2 text-rose-300">{uploadError}</span>}
           </div>
 
           <div className="flex items-center space-x-2.5">
@@ -487,13 +518,16 @@ export const PostUploadModal: React.FC<PostUploadModalProps> = ({
             </button>
             <button
               onClick={handleSubmit}
-              disabled={isAuditing || (!content.trim() && !mediaUrl)}
+              disabled={isAuditing || (!content.trim() && !mediaUrl && !selectedVideoFile)}
               className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-bold text-xs hover:from-emerald-400 hover:to-teal-300 shadow-lg shadow-emerald-500/20 cursor-pointer flex items-center space-x-1.5 disabled:opacity-50"
             >
               {isAuditing ? (
                 <>
                   <Sparkles className="w-4 h-4 animate-spin" />
-                  <span>{language === 'zh' ? 'AI 正在智能安全审核中...' : 'AI Auditing...'}</span>
+                  <span>{mediaType === 'video'
+                    ? (language === 'zh' ? '正在审核并保存视频...' : 'Reviewing and saving video...')
+                    : (language === 'zh' ? 'AI 正在智能安全审核中...' : 'AI Auditing...')}
+                  </span>
                 </>
               ) : (
                 <>

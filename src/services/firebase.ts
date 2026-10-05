@@ -119,6 +119,46 @@ export async function signInWithGoogle(): Promise<User | null> {
   }
 }
 
+/** Load the profile linked to an authenticated Firebase account. */
+export async function fetchUserProfileById(userId: string): Promise<UserProfile | null> {
+  const path = `users/${userId}`;
+  try {
+    const userDoc = await getDoc(doc(db, 'users', userId));
+    if (!userDoc.exists()) return null;
+
+    const d = userDoc.data();
+    return {
+      id: userDoc.id,
+      name: d.displayName || '未命名用户',
+      birthDate: d.birthDate || '1998-06-15',
+      gender: d.gender || 'male',
+      targetAge: Number(d.targetAge) || 85,
+      height: Number(d.height) || 172,
+      weight: Number(d.weight) || 65,
+      bodyFat: Number(d.bodyFat) || 18,
+      fastingBloodSugar: Number(d.fastingBloodSugar) || 5.1,
+      systolicBP: Number(d.systolicBP) || 116,
+      diastolicBP: Number(d.diastolicBP) || 76,
+      restingHeartRate: Number(d.restingHeartRate) || 68,
+      dailyActivityTargetHours: 1.0,
+      maxSedentaryHoursLimit: 4.0,
+      biologicalAgeOffset: Number(d.biologicalAgeOffset) || 0,
+      hasUploadedReport: Boolean(d.hasUploadedReport),
+      uploadedReportName: d.uploadedReportName || '',
+      avatarUrl: d.avatarUrl || '',
+      avatarType: d.avatarType || 'preset',
+      themeConfig: d.themeConfig || undefined,
+      role: (d.role as UserRole) || (d.accountIdentifier === BOOTSTRAP_ADMIN_EMAIL ? 'admin' : 'user'),
+      region: d.region,
+      accountType: d.accountType,
+      accountIdentifier: d.accountIdentifier,
+    };
+  } catch (error) {
+    handleFirestoreError(error, OperationType.GET, path);
+    return null;
+  }
+}
+
 export async function logOut(): Promise<void> {
   await signOut(auth);
 }

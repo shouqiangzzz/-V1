@@ -116,6 +116,7 @@ export interface HabitTrackerItem {
   negativeCondition: string;
   todayStatus: 'completed' | 'negative' | 'none';
   recentDates: { [dateStr: string]: 'good' | 'bad' | 'neutral' };
+  isCustom?: boolean;
 }
 
 export interface SedentaryMonitorState {
@@ -157,6 +158,7 @@ export interface LongevityRuleConfig {
   penaltySeconds: number;
   negativeDaysNeeded: number;
   ageAdjustmentFactor: string; // e.g., "50岁以上需降低高冲击运动，增加平衡训练"
+  isCustom?: boolean;
 }
 
 export interface LifeCountdown {

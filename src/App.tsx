@@ -554,11 +554,16 @@ export const App: React.FC = () => {
               <HabitsTracker
                 habits={habits}
                 profile={profile}
+                rules={rules}
+                onSaveRules={handleSaveRules}
                 onUpdateHabits={handleUpdateHabits}
                 onAddAdjustment={handleAddAdjustment}
                 onOpenFoodScanner={() => setIsFoodScannerOpen(true)}
                 onOpenSedentary={() => setActiveTab('sedentary')}
-                onOpenRules={() => setIsRulesOpen(true)}
+                onOpenRules={() => {
+                  setSettingsInitialTab('rules');
+                  setIsRulesOpen(true);
+                }}
                 onOpenContract={() => setIsContractOpen(true)}
                 onOpenARShare={() => setIsARShareOpen(true)}
               />
@@ -571,11 +576,16 @@ export const App: React.FC = () => {
             <HabitsTracker
               habits={habits}
               profile={profile}
+              rules={rules}
+              onSaveRules={handleSaveRules}
               onUpdateHabits={handleUpdateHabits}
               onAddAdjustment={handleAddAdjustment}
               onOpenFoodScanner={() => setIsFoodScannerOpen(true)}
               onOpenSedentary={() => setActiveTab('sedentary')}
-              onOpenRules={() => setIsRulesOpen(true)}
+              onOpenRules={() => {
+                setSettingsInitialTab('rules');
+                setIsRulesOpen(true);
+              }}
               onOpenContract={() => setIsContractOpen(true)}
               onOpenARShare={() => setIsARShareOpen(true)}
             />
@@ -712,8 +722,10 @@ export const App: React.FC = () => {
         isOpen={isRulesOpen}
         onClose={() => setIsRulesOpen(false)}
         rules={rules}
+        habits={habits}
         profile={profile}
         onSaveRules={handleSaveRules}
+        onSaveHabits={handleUpdateHabits}
         onSaveProfile={handleSaveProfile}
         isAdmin={isAdmin}
         onOpenAdmin={() => setIsAdminOpen(true)}

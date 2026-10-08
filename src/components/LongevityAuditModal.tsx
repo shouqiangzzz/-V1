@@ -74,9 +74,7 @@ export const LongevityAuditModal: React.FC<LongevityAuditModalProps> = ({
   const [customDays, setCustomDays] = useState(1);
   const [customType, setCustomType] = useState<'gain' | 'loss'>('gain');
 
-  if (!isOpen) return null;
-
-  // Filter adjustments by selected period
+  // Filter adjustments by selected period (unconditionally before early return)
   const periodFilteredAdjustments = useMemo(() => {
     const now = Date.now();
     let cutoff = 0;
@@ -84,8 +82,10 @@ export const LongevityAuditModal: React.FC<LongevityAuditModalProps> = ({
     else if (selectedPeriod === '30d') cutoff = now - 30 * 86400 * 1000;
     else if (selectedPeriod === '90d') cutoff = now - 90 * 86400 * 1000;
 
-    return adjustments.filter(adj => adj.timestamp >= cutoff);
+    return (adjustments || []).filter(adj => adj && adj.timestamp >= cutoff);
   }, [adjustments, selectedPeriod]);
+
+  if (!isOpen) return null;
 
   // Aggregate stats for the current period
   const periodGainSeconds = periodFilteredAdjustments

@@ -715,7 +715,14 @@ export const App: React.FC = () => {
         onClose={() => setIsLedgerOpen(false)}
         adjustments={adjustments}
         netGainSeconds={countdown.netGainSeconds}
+        habits={habits}
+        profile={profile}
+        countdown={countdown}
         onAddManualAdjustment={handleAddAdjustment}
+        onOpenAudit={() => {
+          setIsLedgerOpen(false);
+          setIsAuditOpen(true);
+        }}
       />
 
       <RulesCustomizerModal

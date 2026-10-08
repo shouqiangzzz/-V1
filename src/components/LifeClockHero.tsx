@@ -308,8 +308,8 @@ export const LifeClockHero: React.FC<LifeClockHeroProps> = ({
         <div className="flex justify-center mb-3">
           <button
             type="button"
-            onClick={onOpenAudit}
-            title={language === 'zh' ? '点击追溯具体做对了哪些事，增加了多少寿命，查看科学逻辑与成就解析' : 'Click to trace positive actions & calculation logic'}
+            onClick={onOpenLedger}
+            title={language === 'zh' ? '点击查看寿命时间得失账本与合计计算过程' : 'Click to view calculation breakdown & ledger'}
             className={`inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border text-xs font-semibold cursor-pointer transition-all shadow-sm active:scale-98 group ${
               isGainPositive
                 ? 'bg-[var(--bd-accent-soft)] border-emerald-500/30 text-[var(--bd-accent-strong)] hover:border-emerald-400 hover:shadow-emerald-500/20'
